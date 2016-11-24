@@ -1,0 +1,133 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0 auto;
+  background: #f5f5f5;
+  font-size: 14px;
+  line-height: 1.28571em;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+#navigation {
+  position: relative;
+  min-width: 1020px;
+  height: 60px;
+  padding: 12px 0 6px;
+  background: #d32323 url(https://s3-media4.fl.yelpcdn.com/assets/srv0/yelp_styleguide/71b1e22bfb1f/assets/img/structural/header_stars.png) no-repeat center;
+  top: 0;
+  left: 0;
+}
+
+#content-container {
+  position: relative;
+  width: 960px;
+  height: 80%;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+#logo {
+  position: absolute;
+  width: 100px;
+  height: 50px;
+  padding: 0;
+  margin-bottom: 0;
+  background: url(https://s3-media3.fl.yelpcdn.com/assets/srv0/yelp_styleguide/f139a5c9584c/assets/img/logos/header_logo_desktop.png) no-repeat;
+  background-size: 100px 50px;
+}
+
+#search {
+  position: absolute;
+  display: inline-block;
+  top: 20%;
+  left: 15%;
+}
+
+#search input {
+  font-size: 16px;
+  font-family: inherit;
+  padding-left: 10px;
+  outline-width: 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  height: 30px;
+  width: 420px;
+}
+
+/*** End Navigation CSS ***/
+
+#main {
+  position: relative;
+  height: 80%;
+  margin: 40px 35px 40px 35px;
+  padding: 30px;
+  border-top: 1px solid #ddd;
+}
+
+#left {
+  position: absolute;
+  width: 68%;
+  height: 80%;
+  margin-top: 20px;
+  top: 0;
+  left: 0;
+}
+
+#right {
+  position: absolute;
+  width: 30%;
+  height: 80%;
+  margin-top: 20px;
+  top: 0;
+  right: 0;
+}
+
+#review {
+  margin-top: 16px;
+  height: 35%;
+  font-size: 24px;
+  font-family: inherit;
+}
+
+/*** Business User View ***/
+
+.business {
+  position: relative;
+  width: 75%;
+  margin-top: 16px;
+  margin-left: 15%;
+  padding-top: 23px;
+  border-top: 1px solid #ebc074;
+}
+
+img {
+  height: 90px;
+  width: 90px;
+  border-radius: 4px;
+}
+
+.business-name {
+  position: absolute;
+  font-weight: bold;
+  font-size: 150%;
+  color: #0073bb;
+  left: 20%;
+  top: 30px;
+}
+
+.business-address {
+  position: absolute;
+  font-style: normal;
+  width: 18%;
+  left: 70%;
+  top: 30px;
+}
+
+.business-review {
+  font-size: 16px;
+  display: block;
+  margin-top: 10px;
+}
