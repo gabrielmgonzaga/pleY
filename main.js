@@ -1,9 +1,35 @@
 let companies = [
-  { img: "http://placehold.it/140x100", name: "Walmart", address: "10000 Harbor Santa Ana, CA", review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure" },
-  { img: "http://placehold.it/140x100", name: "Target", address: "1000 Seal Beach Blvd. Seal Beach, CA", review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure" },
-  { img: "http://placehold.it/140x100", name: "7-11", address: "100 Barranca Irvine, CA", review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure" }
+  {
+    img: "http://placehold.it/140x100",
+    name: "Walmart",
+    address: "10000 Harbor Santa Ana, CA",
+    reviews: {
+      img: "http://placehold.it/140x100",
+      name: "illum qui",
+      review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    }
+  },
+  {
+    img: "http://placehold.it/140x100",
+    name: "Target",
+    address: "1000 Seal Beach Blvd. Seal Beach, CA",
+    reviews: {
+      img: "http://placehold.it/140x100",
+      name: "quasi architecto",
+      review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    }
+},
+  {
+    img: "http://placehold.it/140x100",
+    name: "7-11",
+    address: "100 Barranca Irvine, CA",
+    reviews: {
+      img: "http://placehold.it/140x100",
+      name: "perspiciatis unde",
+      review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+    }
+  }
 ];
-
 // The DOM_ sign preceding a variable name is a naming convention that represents a DOM element.
 // DOM_form represents the user search form.
 // DOM_businesses represents the users search results that will be displayed on the page.
@@ -30,19 +56,19 @@ DOM_form.addEventListener('submit', (event) => {
   // Result of the users search for businesses
   let matchingBusinesses = userSearch(companies, userSearchValue);
 
-  // Loop through matching businesses and render the business on the page.
+  // Loop through matching business and render the business on the page.
   matchingBusinesses.forEach((item) => {
     let DOM_item = renderBusiness(item);
     DOM_businesses.appendChild(DOM_item);
   });
 
-  DOM_term.select();
+  //DOM_term.select();
 });
 
 // Empty function that removes all children from an HTML element.
 function empty(element) {
   while (element.firstChild) {
-    element.removeChild(element.firstChild)
+    element.removeChild(element.firstChild);
   }
 }
 
@@ -59,7 +85,7 @@ function userSearch(allItems, userText) {
   return matchingBusinesses;
 }
 
-// Render Function which displays businesses on the DOM.
+// Render function which displays businesses on the DOM.
 function renderBusiness(item) {
 
   // <div class="business">
@@ -81,7 +107,8 @@ function renderBusiness(item) {
 
   DOM_thumbnail.appendChild(DOM_image);
 
-  let DOM_name = document.createElement('span');
+  let DOM_name = document.createElement('a');
+  DOM_name.setAttribute('href','#');
   DOM_name.textContent = item.name;
   DOM_name.classList.add('business-name');
 
@@ -90,7 +117,7 @@ function renderBusiness(item) {
   DOM_address.classList.add('business-address');
 
   let DOM_review = document.createElement('span');
-  DOM_review.textContent = item.review;
+  DOM_review.textContent = item.reviews.review;
   DOM_review.classList.add('business-review');
 
   DOM_item.appendChild(DOM_thumbnail);
@@ -99,4 +126,21 @@ function renderBusiness(item) {
   DOM_item.appendChild(DOM_review);
 
   return DOM_item;
+}
+
+// Render function that displays a business that is clicked by the user.
+function renderSingleBusiness(item) {
+
+  // <div class="business-header">
+  //   <h1 class="business-header-name">{ Business name }</h1>
+  //   <div class="business-header-images">
+  //     <img /> { Business Images }
+  //   </div>
+  // </div>
+  // <div class="business-main-reviews">
+  //   <img /> { User Images }
+  //   <span>{ User Name }</span>
+  //   <span>{ User Reviews }</span>
+  // </div>
+
 }

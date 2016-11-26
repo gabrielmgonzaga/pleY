@@ -103,7 +103,7 @@ body {
   border-top: 1px solid #ebc074;
 }
 
-img {
+.business img {
   height: 90px;
   width: 90px;
   border-radius: 4px;
@@ -114,8 +114,12 @@ img {
   font-weight: bold;
   font-size: 150%;
   color: #0073bb;
-  left: 20%;
+  left: 22%;
   top: 30px;
+}
+
+a {
+  text-decoration: none;
 }
 
 .business-address {
