@@ -12,25 +12,20 @@ let DOM_form = document.getElementById('form-search');
 let DOM_businesses = document.getElementById('businesses');
 let DOM_term = DOM_form.querySelector('input');
 
-// Listen for `submit` events on the DOM_form in the DOM.
+// Event listener that listens for users' input value and renders matching values on the DOM.
 DOM_form.addEventListener('submit', (event) => {
 
-  // Cancels the default behavior for submit events.
   event.preventDefault();
 
-  // Prevents user from re-submitting form.
   empty(DOM_businesses);
 
-  // userSearchValue represents the value the user types into the input
   let userSearchValue = DOM_term.value;
 
-  // If the input text is empty, don't allow the user to submit anything.
   if (!userSearchValue.trim()) return;
 
-  // Result of the users search for businesses
   let matchingBusinesses = userSearch(companies, userSearchValue);
 
-  // Loop through matching businesses and render the business on the page.
+  // Loop that matches businesses and renders the business on the page.
   matchingBusinesses.forEach((item) => {
     let DOM_item = renderBusiness(item);
     DOM_businesses.appendChild(DOM_item);
@@ -39,17 +34,16 @@ DOM_form.addEventListener('submit', (event) => {
   DOM_term.select();
 });
 
-// Empty function that removes all children from an HTML element.
+// Helper function that removes all children from a selected HTML element.
 function empty(element) {
   while (element.firstChild) {
     element.removeChild(element.firstChild)
   }
 }
 
-// Search function which matches business name.
+// Helper function that matches the business' name with text the user inputs in the search bar.
 function userSearch(allItems, userText) {
 
-  // Filter through the array of objects and return only those that pass the filter test.
   let matchingBusinesses = allItems.filter((item) => {
     let businessText = item.name;
     let match = businessText.toLowerCase().indexOf(userText.toLowerCase()) > -1;
