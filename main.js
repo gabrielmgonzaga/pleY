@@ -1,4 +1,4 @@
-let companies = [
+const companies = [
   {
     img: "http://placehold.it/140x100",
     name: "Walmart",
