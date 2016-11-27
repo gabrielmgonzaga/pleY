@@ -18,7 +18,7 @@ let companies = [
       name: "quasi architecto",
       review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     }
-},
+  },
   {
     img: "http://placehold.it/140x100",
     name: "7-11",
@@ -30,52 +30,30 @@ let companies = [
     }
   }
 ];
-// The DOM_ sign preceding a variable name is a naming convention that represents a DOM element.
-// DOM_form represents the user search form.
-// DOM_businesses represents the users search results that will be displayed on the page.
-// DOM_term represents the users search value.
-let DOM_form = document.getElementById('form-search');
-let DOM_businesses = document.getElementById('businesses');
-let DOM_term = DOM_form.querySelector('input');
 
-// Listen for `submit` events on the DOM_form in the DOM.
-DOM_form.addEventListener('submit', (event) => {
+// The $ sign preceding a variable name is a naming convention that represents a DOM element.
+let $form = document.getElementById('form-search');
+let $businesses = document.getElementById('businesses');
+let $term = $form.querySelector('input');
 
-  // Cancels the default behavior for submit events.
-  event.preventDefault();
+// let $anchorTag = document.querySelector('a');
 
-  // Prevents user from re-submitting form.
-  empty(DOM_businesses);
+// let show = $anchorTag.addEventListener('click', (event) => {
+//   empty($businesses);
+//   companies.forEach((item) => {
+//   });
+// });
 
-  // userSearchValue represents the value the user types into the input
-  let userSearchValue = DOM_term.value;
-
-  // If the input text is empty, don't allow the user to submit anything.
-  if (!userSearchValue.trim()) return;
-
-  // Result of the users search for businesses
-  let matchingBusinesses = userSearch(companies, userSearchValue);
-
-  // Loop through matching business and render the business on the page.
-  matchingBusinesses.forEach((item) => {
-    let DOM_item = renderBusiness(item);
-    DOM_businesses.appendChild(DOM_item);
-  });
-
-  //DOM_term.select();
-});
-
-// Empty function that removes all children from an HTML element.
+  // **************** HELPER FUNCTIONS ****************//
+// Removes targeted elements.
 function empty(element) {
   while (element.firstChild) {
     element.removeChild(element.firstChild);
   }
 }
 
-// Search function which matches business name.
+// Search function that matches business name with user input.
 function userSearch(allItems, userText) {
-
-  // Filter through the array of objects and return only those that pass the filter test.
   let matchingBusinesses = allItems.filter((item) => {
     let businessText = item.name;
     let match = businessText.toLowerCase().indexOf(userText.toLowerCase()) > -1;
@@ -85,6 +63,19 @@ function userSearch(allItems, userText) {
   return matchingBusinesses;
 }
 
+// Helper function to create class named elements.
+function newClassName(element, className) {
+  let name = document.createElement(element);
+
+  if (!className) return name;
+  name.classList.add(className);
+
+  return name;
+}
+
+  // **************** HELPER FUNCTIONS ****************//
+
+  // **************** RENDER FUNCTIONS ****************//
 // Render function which displays businesses on the DOM.
 function renderBusiness(item) {
 
@@ -96,51 +87,69 @@ function renderBusiness(item) {
   //   </div>
   // </div>
 
-  let DOM_item = document.createElement('div');
-  DOM_item.classList.add('business');
+  let $item = newClassName('div', 'business');
+  let $thumbnail = newClassName('div', 'business-image');
 
-  let DOM_thumbnail = document.createElement('div');
-  DOM_thumbnail.classList.add('business-image');
+  let $image = newClassName('img');
+  $image.setAttribute('src', item.img);
+  $thumbnail.appendChild($image);
 
-  let DOM_image = document.createElement('img');
-  DOM_image.setAttribute('src', item.img);
+  let $name = newClassName('a', 'business-name');
+  $name.setAttribute('href', '#');
+  $name.textContent = item.name;
 
-  DOM_thumbnail.appendChild(DOM_image);
+  let $address = newClassName('span', 'business-address');
+  $address.textContent = item.address;
 
-  let DOM_name = document.createElement('a');
-  DOM_name.setAttribute('href','#');
-  DOM_name.textContent = item.name;
-  DOM_name.classList.add('business-name');
+  let $review = newClassName('span', 'business-review');
+  $review.textContent = item.reviews.review;
 
-  let DOM_address = document.createElement('span');
-  DOM_address.textContent = item.address;
-  DOM_address.classList.add('business-address');
+  $item.appendChild($thumbnail);
+  $item.appendChild($name);
+  $item.appendChild($address);
+  $item.appendChild($review);
 
-  let DOM_review = document.createElement('span');
-  DOM_review.textContent = item.reviews.review;
-  DOM_review.classList.add('business-review');
-
-  DOM_item.appendChild(DOM_thumbnail);
-  DOM_item.appendChild(DOM_name);
-  DOM_item.appendChild(DOM_address);
-  DOM_item.appendChild(DOM_review);
-
-  return DOM_item;
+  return $item;
 }
 
 // Render function that displays a business that is clicked by the user.
-function renderSingleBusiness(item) {
+// function renderSingleBusiness(item) {
+//
+//   // <div class="business-header">
+//   //   <h1 class="business-header-name">{ Business name }</h1>
+//   //   <div class="business-header-images">
+//   //     <img /> { Business Images }
+//   //   </div>
+//   // </div>
+//   // <div class="business-main-reviews">
+//   //   <img /> { User Images }
+//   //   <span>{ User Name }</span>
+//   //   <span>{ User Reviews }</span>
+//   // </div>
 
-  // <div class="business-header">
-  //   <h1 class="business-header-name">{ Business name }</h1>
-  //   <div class="business-header-images">
-  //     <img /> { Business Images }
-  //   </div>
-  // </div>
-  // <div class="business-main-reviews">
-  //   <img /> { User Images }
-  //   <span>{ User Name }</span>
-  //   <span>{ User Reviews }</span>
-  // </div>
+  // **************** RENDER FUNCTIONS ****************//
 
-}
+  // **************** EVENT LISTENERS ****************//
+// Event listener for user input in the search form.
+$form.addEventListener('submit', (event) => {
+
+  event.preventDefault();
+
+  empty($businesses);
+
+  let userSearchValue = $term.value;
+
+  if (!userSearchValue.trim()) return;
+
+  let matchingBusinesses = userSearch(companies, userSearchValue);
+
+  // Loop through matching business and render the business on the page.
+  matchingBusinesses.forEach((item) => {
+    let $item = renderBusiness(item);
+    $businesses.appendChild($item);
+  });
+
+  $term.select();
+});
+
+  // **************** EVENT LISTENERS ****************//
