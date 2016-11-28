@@ -143,13 +143,14 @@ $form.addEventListener('submit', (event) => {
 
   let matchingBusinesses = userSearch(companies, userSearchValue);
 
+  // Conditional to fire `No Results Found Message`.
   if (matchingBusinesses.length === 0) {
     let $noResults = newClassName('h3', 'results');
-    $noResults.textContent = 'No Results for ' + userSearchValue
+    $noResults.textContent = 'No Results for ' + userSearchValue;
     $businesses.appendChild($noResults);
   }
   else {
-      // Loop through matching business and render the business on the page.
+    // Loop through matching business and render the business on the page.
     matchingBusinesses.forEach((item) => {
       let $item = renderBusiness(item);
       $businesses.appendChild($item);
