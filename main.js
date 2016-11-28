@@ -1,4 +1,4 @@
-const companies = [
+let companies = [
   {
     img: "http://placehold.it/140x100",
     name: "Walmart",
@@ -30,19 +30,6 @@ const companies = [
     }
   }
 ];
-
-// The $ sign preceding a variable name is a naming convention that represents a DOM element.
-let $form = document.getElementById('form-search');
-let $businesses = document.getElementById('businesses');
-let $term = $form.querySelector('input');
-
-// let $anchorTag = document.querySelector('a');
-
-// let show = $anchorTag.addEventListener('click', (event) => {
-//   empty($businesses);
-//   companies.forEach((item) => {
-//   });
-// });
 
   // **************** HELPER FUNCTIONS ****************//
 // Removes targeted elements.
@@ -130,6 +117,11 @@ function renderBusiness(item) {
   // **************** RENDER FUNCTIONS ****************//
 
   // **************** EVENT LISTENERS ****************//
+// The $ sign preceding a variable name is a naming convention that represents a DOM element.
+let $form = document.getElementById('form-search');
+let $businesses = document.getElementById('businesses');
+let $term = $form.querySelector('input');
+
 // Event listener for user input in the search form.
 $form.addEventListener('submit', (event) => {
 
@@ -158,5 +150,4 @@ $form.addEventListener('submit', (event) => {
 
   $term.select();
 });
-
   // **************** EVENT LISTENERS ****************//
