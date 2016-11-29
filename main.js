@@ -31,16 +31,56 @@ let companies = [
   }
 ];
 
+<<<<<<< HEAD
   // **************** HELPER FUNCTIONS ****************//
 // Removes targeted elements.
+=======
+// The DOM_ sign preceding a variable name is a naming convention that represents a DOM element.
+// DOM_form represents the user search form.
+// DOM_businesses represents the users search results that will be displayed on the page.
+// DOM_term represents the users search value.
+let DOM_form = document.getElementById('form-search');
+let DOM_businesses = document.getElementById('businesses');
+let DOM_term = DOM_form.querySelector('input');
+
+// Event listener that listens for users' input value and renders matching values on the DOM.
+DOM_form.addEventListener('submit', (event) => {
+
+  event.preventDefault();
+
+  empty(DOM_businesses);
+
+  let userSearchValue = DOM_term.value;
+
+  if (!userSearchValue.trim()) return;
+
+  let matchingBusinesses = userSearch(companies, userSearchValue);
+
+  // Loop that matches businesses and renders the business on the page.
+  matchingBusinesses.forEach((item) => {
+    let DOM_item = renderBusiness(item);
+    DOM_businesses.appendChild(DOM_item);
+  });
+
+  DOM_term.select();
+});
+
+// Helper function that removes all children from a selected HTML element.
+>>>>>>> issue-1
 function empty(element) {
   while (element.firstChild) {
     element.removeChild(element.firstChild);
   }
 }
 
+<<<<<<< HEAD
 // Search function that matches business name with user input.
 function userSearch(allItems, userText) {
+=======
+// Helper function that matches the business' name with text the user inputs in the search bar.
+function userSearch(allItems, userText) {
+
+>>>>>>> issue-1
   let matchingBusinesses = allItems.filter((item) => {
     let businessText = item.name;
     let match = businessText.toLowerCase().indexOf(userText.toLowerCase()) > -1;
