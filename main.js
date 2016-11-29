@@ -103,6 +103,7 @@ function renderSingleBusiness(item) {
   // <div class="business-main">
   //   <div class="business-header">
   //     <h1 class="business-header-name">{ Business name }</h1>
+  //     <button> <i> { * } </i> { Write a Review } </button>
   //     <img /> { Business Images }
   //   </div>
   //   <div class="business-main-reviews">
@@ -118,6 +119,9 @@ function renderSingleBusiness(item) {
   let $name = newClassName('h1', 'business-header-name');
     $name.textContent = item.name;
 
+  let $button = newClassName('button', 'review-button')
+    $button.textContent = 'Write a Review';
+
   let $businessImages = newClassName('img');
     $businessImages.setAttribute('src', item.img);
     $businessImages.setAttribute('id', 'map');
@@ -125,7 +129,7 @@ function renderSingleBusiness(item) {
   let $reviews = newClassName('div', 'business-main-reviews')
 
   let $userImage = newClassName('img');
-    $userImage.setAttribute('src', item.reviews.img)
+    $userImage.setAttribute('src', item.reviews.img);
     $userImage.setAttribute('id', 'smallImage');
     $reviews.appendChild($userImage);
 
@@ -141,6 +145,7 @@ function renderSingleBusiness(item) {
     $reviews.appendChild($userReviews);
 
   $item.appendChild($name);
+  $item.appendChild($button);
   $item.appendChild($businessImages);
   $reviews.appendChild($userImage);
   $reviews.appendChild($userName);
