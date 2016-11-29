@@ -148,7 +148,10 @@ function renderSingleBusiness(item) {
 // The $ sign preceding a variable name is a naming convention that represents a DOM element.
 let $form = document.getElementById('form-search');
 let $businesses = document.getElementById('businesses');
+<<<<<<< HEAD
 let $business = document.getElementById('business');
+=======
+>>>>>>> issue-5
 let $term = $form.querySelector('input');
 
 // Event listener for user input in the search form.
@@ -184,6 +187,7 @@ $form.addEventListener('submit', (event) => {
 
   $term.select();
 });
+<<<<<<< HEAD
 
 $businesses.addEventListener('click', (event) => {
 
@@ -203,3 +207,6 @@ $businesses.addEventListener('click', (event) => {
 
 });
   // **************** END EVENT LISTENERS ****************//
+=======
+  // **************** EVENT LISTENERS ****************//
+>>>>>>> issue-5
