@@ -5,9 +5,9 @@ let companies = [
     name: "Walmart",
     address: "10000 Harbor Santa Ana, CA",
     reviews: {
-      img: "http://placehold.it/140x100",
-      name: "illum qui",
-      review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+        img: "http://placehold.it/140x100",
+        name: "illum qui",
+        review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     }
   },
   {
@@ -125,7 +125,7 @@ function renderSingleBusiness(item) {
   let $reviews = newClassName('div', 'business-main-reviews')
 
   let $userImage = newClassName('img');
-    $userImage.setAttribute('src', item.reviews.img);
+    $userImage.setAttribute('src', item.reviews.img)
     $userImage.setAttribute('id', 'smallImage');
     $reviews.appendChild($userImage);
 
