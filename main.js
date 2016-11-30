@@ -32,41 +32,43 @@ let companies = [
       review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     }
   }
-];
+]
 
   // **************** HELPER FUNCTIONS **************** //
-// Removes targeted elements.
+// 1. Removes targeted elements.
+// 2. Search function that matches business name with user input.
+// 3. Helper function to create class named elements.
 function empty(element) {
   while (element.firstChild) {
-    element.removeChild(element.firstChild);
+    element.removeChild(element.firstChild)
   }
 }
 
-// Search function that matches business name with user input.
 function userSearch(allItems, userText) {
   let matchingBusinesses = allItems.filter((item) => {
-    let businessText = item.name;
-    let match = businessText.toLowerCase().indexOf(userText.toLowerCase()) > -1;
-    return match;
-  });
+    let businessText = item.name
+    let match = businessText.toLowerCase().indexOf(userText.toLowerCase()) > -1
+    return match
+  })
 
-  return matchingBusinesses;
+  return matchingBusinesses
 }
 
-// Helper function to create class named elements.
 function newClassName(element, className) {
-  let name = document.createElement(element);
+  let name = document.createElement(element)
 
-  if (!className) return name;
-  name.classList.add(className);
+  if (!className) return name
+  name.classList.add(className)
 
-  return name;
+  return name
 }
-  // **************** END HELPER ()'s' **************** //
+  // **************** END **************** //
 
   // **************** DOM_Creation FUNCTIONS **************** //
-// Render function which displays businesses on the DOM.
-function renderBusiness(item) {
+// 1. Render function which displays businesses on the DOM.
+// 2. Render function that displays a business that is clicked by the user.
+// 3. Render function that builds the user review DOM.
+function renderBusinesses(item) {
 
   // <div class="business">
   //   <div class="business-thumbnail"><img src="{imageUrl}" />
@@ -76,34 +78,39 @@ function renderBusiness(item) {
   //   </div>
   // </div>
 
-  let $item = newClassName('div', 'business');
-  let $thumbnail = newClassName('div', 'business-image');
-  let $image = newClassName('img');
-    $image.setAttribute('src', item.img);
-    $thumbnail.appendChild($image);
-  let $name = newClassName('a', 'business-name');
-    $name.setAttribute('href', '#');
-    $name.setAttribute('data-id', item.id);
-    $name.textContent = item.name;
-  let $address = newClassName('span', 'business-address');
-    $address.textContent = item.address;
-  let $review = newClassName('span', 'business-review');
-    $review.textContent = item.reviews.review;
+  let $item = newClassName('div', 'business')
 
-  $item.appendChild($thumbnail);
-  $item.appendChild($name);
-  $item.appendChild($address);
-  $item.appendChild($review);
+  let $thumbnail = newClassName('div', 'business-image')
 
-  return $item;
+  let $image = newClassName('img')
+  $image.setAttribute('src', item.img)
+  $thumbnail.appendChild($image)
+
+  let $name = newClassName('a', 'business-name')
+  $name.setAttribute('href', '#')
+  $name.setAttribute('data-id', item.id)
+  $name.textContent = item.name
+
+  let $address = newClassName('span', 'business-address')
+  $address.textContent = item.address
+
+  let $review = newClassName('span', 'business-review')
+  $review.textContent = item.reviews.review
+
+  $item.appendChild($thumbnail)
+  $item.appendChild($name)
+  $item.appendChild($address)
+  $item.appendChild($review)
+
+  return $item
 }
 
-// Render function that displays a business that is clicked by the user.
 function renderSingleBusiness(item) {
+
   // <div class="business-main">
   //   <div class="business-header">
   //     <h1 class="business-header-name">{ Business name }</h1>
-  //     <button> <i> { * } </i> { Write a Review } </button>
+  //     <a class=""><button> { Write a Review } </button></a>
   //     <img /> { Business Images }
   //   </div>
   //   <div class="business-main-reviews">
@@ -115,110 +122,202 @@ function renderSingleBusiness(item) {
 
   let $main = newClassName('div', 'business-main')
 
-  let $item = newClassName('div', 'business-header');
-  let $name = newClassName('h1', 'business-header-name');
-    $name.textContent = item.name;
+  let $item = newClassName('div', 'business-header')
+  let $name = newClassName('h1', 'business-header-name')
+  $name.textContent = item.name
 
-  let $button = newClassName('button', 'review-button')
-    $button.textContent = 'Write a Review';
+  let $button = newClassName('a', 'review-button')
+  $button.setAttribute('href', '#')
+  $button.setAttribute('data-id', item.id)
+  $button.textContent = 'Write a Review'
 
-  let $businessImages = newClassName('img');
-    $businessImages.setAttribute('src', item.img);
-    $businessImages.setAttribute('id', 'map');
+  let $businessImages = newClassName('img')
+  $businessImages.setAttribute('src', item.img)
+  $businessImages.setAttribute('id', 'map')
 
   let $reviews = newClassName('div', 'business-main-reviews')
 
-  let $userImage = newClassName('img');
-    $userImage.setAttribute('src', item.reviews.img);
-    $userImage.setAttribute('id', 'smallImage');
-    $reviews.appendChild($userImage);
+  let $userImage = newClassName('img')
+  $userImage.setAttribute('src', item.reviews.img)
+  $userImage.setAttribute('id', 'smallImage')
 
-  let $userName = newClassName('a');
-    $userName.setAttribute('href', '#');
-    $userName.setAttribute('id', 'userName');
-    $userName.textContent = item.reviews.name;
-    $reviews.appendChild($userName);
+  let $userName = newClassName('a')
+  $userName.setAttribute('href', '#')
+  $userName.setAttribute('id', 'userName')
+  $userName.textContent = item.reviews.name
 
-  let $userReviews = newClassName('div');
-    $userReviews.setAttribute('id', 'userReviews');
-    $userReviews.textContent = item.reviews.review;
-    $reviews.appendChild($userReviews);
+  let $userReviews = newClassName('div')
+  $userReviews.setAttribute('id', 'userReviews')
+  $userReviews.textContent = item.reviews.review
 
-  $item.appendChild($name);
-  $item.appendChild($button);
-  $item.appendChild($businessImages);
-  $reviews.appendChild($userImage);
-  $reviews.appendChild($userName);
-  $reviews.appendChild($userReviews);
-  $main.appendChild($item);
-  $main.appendChild($reviews);
+  $item.appendChild($name)
+  $item.appendChild($button)
+  $item.appendChild($businessImages)
+  $reviews.appendChild($userImage)
+  $reviews.appendChild($userName)
+  $reviews.appendChild($userReviews)
+  $main.appendChild($item)
+  $main.appendChild($reviews)
 
-  return $main;
+  return $main
 }
-  // **************** END DOM_Creation ()'s' **************** //
 
-  // **************** EVENT LISTENERS **************** //
+function renderReviewForm(item) {
+
+  // <div class="review-container">
+  //   <h3 class="review-message"> { Write a Review }</h3>
+  //   <img />
+  //   <span class="review-name"> { Business Name }</span>
+  //   <span class="review-address"> { Business Address } </span>
+  //
+  //   <div class="review-form">
+  //     <span class="review-label"> { Your Review } </span>
+  //     <form class="review-form">
+  //       <textarea type="submit" class="text-area"></textarea>
+  //       <button> { Post Review } </button>
+  //     </form>
+  //   </div>
+  // </div>
+
+  let $main = newClassName('div', 'review-container')
+
+  let $message = newClassName('span', 'review-message')
+  $message.textContent = 'Write a Review'
+
+  let $img = newClassName('img')
+  $img.setAttribute('src', item.reviews.img)
+  $img.setAttribute('id','reviewImage')
+
+  let $name = newClassName('a', 'review-name')
+  $name.setAttribute('href', '#')
+  $name.textContent = item.name
+
+  let $address = newClassName('span', 'review-address')
+  $address.textContent = item.address
+
+  let $formContainer = newClassName('div', 'review-form')
+
+  let $label = newClassName('span', 'review-label')
+  $label.textContent = 'Your Review'
+
+  let $form = newClassName('form', 'review-form')
+  let $text = newClassName('textarea', 'text-area')
+  let $button = newClassName('button', 'post-button')
+  $button.setAttribute('type', 'submit')
+  $button.textContent = 'Post Review'
+  $form.appendChild($text)
+  $form.appendChild($button)
+
+  $formContainer.appendChild($label)
+  $formContainer.appendChild($form)
+
+  $main.appendChild($message)
+  $main.appendChild($img)
+  $main.appendChild($name)
+  $main.appendChild($address)
+  $main.appendChild($formContainer)
+
+  return $main
+}
+  // **************** END **************** //
+
+  // **************** EVENT LISTENER FUNCTIONS **************** //
 // The $ sign preceding a variable name is a naming convention that represents a DOM element.
-let $form = document.getElementById('form-search');
-let $businesses = document.getElementById('businesses');
-let $business = document.getElementById('business');
-let $term = $form.querySelector('input');
+let $form = document.getElementById('form-search')
+let $businesses = document.getElementById('businesses')
+let $business = document.getElementById('business')
+let $review = document.getElementById('review')
+let $term = $form.querySelector('input')
 
-// Event listener for user input in the search form.
-$form.addEventListener('submit', (event) => {
+// 1. UI View for user search.
+// 2. UI View for single business.
+// 3. UI View for review form.
+let showSearch = function(event) {
+  event.preventDefault()
 
-  event.preventDefault();
+  empty($businesses)
 
-  empty($businesses);
+  let userSearchValue = $term.value
+  if (!userSearchValue.trim()) return
 
-  let userSearchValue = $term.value;
-  if (!userSearchValue.trim()) return;
-
-  let matchingBusinesses = userSearch(companies, userSearchValue);
+  let matchingBusinesses = userSearch(companies, userSearchValue)
 
   // Conditional to fire `No Results Found Message`.
   if (matchingBusinesses.length === 0) {
-    let $noResults = newClassName('h3', 'results');
-      $noResults.textContent = 'No Results for ' + userSearchValue;
-      $businesses.appendChild($noResults);
+    let $noResults = newClassName('h3', 'results')
+      $noResults.textContent = 'No Results for ' + userSearchValue
+      $businesses.appendChild($noResults)
   }
   else {
     // Loop through matching business and render the business on the page.
     matchingBusinesses.forEach((object) => {
-      let $item = renderBusiness(object);
-      $businesses.appendChild($item);
+      let $item = renderBusinesses(object)
+      $businesses.appendChild($item)
 
-      // CSS to hide the $businesses Div after user click.
-      $businesses.style.visibility = 'visible';
-      $businesses.style.position = 'relative';
+      // CSS to show.
+      $businesses.style.visibility = 'visible'
+      $businesses.style.position = 'relative'
 
-      // CSS to show the $business Div.
-      $business.style.visibility = 'hidden';
-    });
+      // CSS to hide.
+      $business.style.visibility = 'hidden'
+      $business.style.position = 'relative'
+      $review.style.visibility = 'hidden'
+    })
   }
 
-  $term.select();
-});
+  $term.select()
+}
 
-// Event Listener that fires after user clicks on Business Name.
-$businesses.addEventListener('click', (event) => {
-
-  empty($business);
+let showBusiness = function(event) {
+  empty($business)
 
   if (event.target.classList.value === 'business-name') {
     companies.forEach((object) => {
       if (event.target.getAttribute('data-id') == object.id) {
-        let $singleBusiness = renderSingleBusiness(object);
-        $business.appendChild($singleBusiness);
+        let $singleBusiness = renderSingleBusiness(object)
+        $business.appendChild($singleBusiness)
 
-        // CSS to hide the $businesses Div after user click.
-        $businesses.style.visibility = 'hidden';
-        $businesses.style.position = 'absolute';
+        // CSS to show.
+        $business.style.visibility = 'visible'
 
-        // CSS to show the $business Div.
-        $business.style.visibility = 'visible';
+        // CSS to hide.
+        $businesses.style.visibility = 'hidden'
+        $businesses.style.position = 'absolute'
       }
-    });
+    })
   }
-});
-  // **************** END EVENT LISTENERS ****************//
+}
+
+let showReviewForm = function(event) {
+  empty($review)
+
+  if (event.target.classList.value === 'review-button') {
+    companies.forEach((object) => {
+      if (event.target.getAttribute('data-id') == object.id) {
+        let $form = renderReviewForm(object)
+        $review.appendChild($form)
+
+        // CSS set to show.
+        $review.style.visibility = 'visible'
+
+        // CSS to hide.
+        $business.style.visibility = 'hidden'
+        $business.style.position = 'absolute'
+      }
+    })
+  }
+}
+
+  // **************** END **************** //
+
+  // **************** EVENT LISTENERS **************** //
+// 1. Event listener that displays users' search.
+// 2. Event listener that displays business landing page.
+// 3. Event listener that shows the review form.
+$form.addEventListener('submit', showSearch)
+
+$businesses.addEventListener('click', showBusiness)
+
+$business.addEventListener('click', showReviewForm)
+
+  // **************** END ****************//
