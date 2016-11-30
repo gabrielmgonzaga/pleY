@@ -27,8 +27,7 @@ body {
   position: relative;
   width: 960px;
   height: 80%;
-  margin: 0 auto;
-  padding: 0 15px;
+  margin-left: 70px;
 }
 
 #logo {
@@ -125,6 +124,11 @@ body {
 
 /*** Business List View ***/
 
+.business:last-child {
+  padding-bottom: 25px;
+  border-bottom: 1px solid #ebc074;
+}
+
 .business {
   position: relative;
   width: 58%;
@@ -145,7 +149,7 @@ body {
   font-weight: bold;
   font-size: 150%;
   color: #0073bb;
-  left: 22%;
+  left: 120px;
   top: 30px;
 }
 
@@ -206,13 +210,18 @@ a {
   width: 225px;
 }
 
+.business-main-reviews:last-child {
+  border-bottom: 1px solid #ebc074;
+}
+
 .business-main-reviews {
   position: relative;
-  border-top: 1px solid #ebc074;
+  width: 60%;
+  height: 160px;
   margin-top: 25px;
   padding-top: 15px;
-  width: 60%;
-  height: 200px;
+  padding-bottom: 25px;
+  border-top: 1px solid #ebc074;
 }
 
 #smallImage {
@@ -233,9 +242,9 @@ a {
 #userReviews {
   position: absolute;
   font-size: 14px;
-  top: 25%;
+  top: 40%;
   margin-left: 35%;
-  width: 65%;
+  width: 55%;
 }
 
 /*** User Review Form ***/
@@ -289,10 +298,23 @@ a {
    font-weight: bold;
  }
 
+ #nameInput {
+   margin-top: 5px;
+   margin-bottom: 12px;
+   width: 40%;
+   padding: 4px 0 4px 4px;
+   font-size: 14px;
+   color: #000;
+   background: rgba(250,250,249,.9);
+   border: 1px solid #bbb;
+   border-color: #999995;
+   box-shadow: inset 0 2px 2px rgba(0,0,0,.15),0 0 6px rgba(0,126,255,.5);
+   border-radius: 4px;
+ }
+
  .text-area {
-   margin-top: 8px;
    padding-top: 5px;
-   padding-left: 5px;
+   padding: 4px 0 0 4px;
    height: 160px;
    width: 100%;
    font-size: 14px;
@@ -322,3 +344,12 @@ a {
    box-shadow: 0 1px 1px rgba(0,0,0,.3);
    border-radius: 4px;
  }
+
+/*** Media Queries ***/
+
+ @media only screen
+and (min-width : 1824px) {
+  body {
+    width: 75%;
+  }
+}
