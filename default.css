@@ -121,14 +121,14 @@ body {
   font-family: inherit;
 }
 
-/*** Business User View ***/
+/*** Business List View ***/
 
 .business {
   position: relative;
   width: 75%;
   margin-top: 16px;
-  margin-left: 15%;
-  padding-top: 23px;
+  margin-left: 8%;
+  padding-top: 25px;
   border-top: 1px solid #ebc074;
 }
 
@@ -163,4 +163,50 @@ a {
   font-size: 16px;
   display: block;
   margin-top: 10px;
+}
+
+/*** Individual Business UI View ***/
+
+.business-header {
+  width: 100%;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #ddd;
+}
+
+#map {
+  margin-top: 10px;
+  height: 175px;
+  width: 225px;
+}
+
+.business-main-reviews {
+  position: relative;
+  border-top: 1px solid #ebc074;
+  margin-top: 25px;
+  padding-top: 15px;
+  width: 68%;
+  height: 200px;
+}
+
+#smallImage {
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  border-radius: 5px;
+}
+
+#userName {
+  position: absolute;
+  left: 60px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #0073bb;
+}
+
+#userReviews {
+  position: absolute;
+  font-size: 14px;
+  top: 25%;
+  margin-left: 35%;
+  width: 65%;
 }
