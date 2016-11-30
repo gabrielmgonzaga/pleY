@@ -173,6 +173,7 @@ function renderReviewForm(item) {
   //   <div class="review-form">
   //     <span class="review-label"> { Your Review } </span>
   //     <form class="review-form">
+  //       <input type="text" id="nameInput">
   //       <textarea type="submit" class="text-area"></textarea>
   //       <button> { Post Review } </button>
   //     </form>
@@ -195,16 +196,26 @@ function renderReviewForm(item) {
   let $address = newClassName('span', 'review-address')
   $address.textContent = item.address
 
-  let $formContainer = newClassName('div', 'review-form')
+  let $formContainer = newClassName('div')
 
   let $label = newClassName('span', 'review-label')
   $label.textContent = 'Your Review'
 
-  let $form = newClassName('form', 'review-form')
+  let $form = newClassName('form')
+  $form.setAttribute('id', 'reviewForm')
+
+  let $input = newClassName('input')
+  $input.setAttribute('type', 'text')
+  $input.setAttribute('id', 'nameInput')
+  $input.setAttribute('placeholder', 'Name: required')
+
   let $text = newClassName('textarea', 'text-area')
+  $text.setAttribute('placeholder', 'Review: "I love this place"')
   let $button = newClassName('button', 'post-button')
   $button.setAttribute('type', 'submit')
   $button.textContent = 'Post Review'
+
+  $form.appendChild($input)
   $form.appendChild($text)
   $form.appendChild($button)
 
@@ -224,14 +235,17 @@ function renderReviewForm(item) {
   // **************** EVENT LISTENER FUNCTIONS **************** //
 // The $ sign preceding a variable name is a naming convention that represents a DOM element.
 let $form = document.getElementById('form-search')
+let $term = $form.querySelector('input')
+
 let $businesses = document.getElementById('businesses')
 let $business = document.getElementById('business')
 let $review = document.getElementById('review')
-let $term = $form.querySelector('input')
 
 // 1. UI View for user search.
 // 2. UI View for single business.
 // 3. UI View for review form.
+// 4. UI View to submit new review.
+// 5. UI View to toggle between Review Form and Single Business.
 let showSearch = function(event) {
   event.preventDefault()
 
@@ -308,16 +322,72 @@ let showReviewForm = function(event) {
   }
 }
 
+let postNewReview = function(event) {
+  event.preventDefault()
+
+  let $form = document.getElementById('reviewForm')
+
+  let $nameTerm = $form.querySelector('input')
+  let name = $nameTerm.value
+  if (!name) return
+
+  let $textTerm = $form.querySelector('textarea')
+  let review = $textTerm.value
+
+  let $reviews = newClassName('div', 'business-main-reviews')
+
+  let $userName = newClassName('a')
+  $userName.setAttribute('href', '#')
+  $userName.setAttribute('id', 'userName')
+  $userName.textContent = name
+
+  let $userImage = newClassName('img')
+  $userImage.setAttribute('src', 'http://placehold.it/140x100')
+  $userImage.setAttribute('id', 'smallImage')
+
+  let $userReview = newClassName('div')
+  $userReview.setAttribute('id', 'userReviews')
+  $userReview.textContent = review
+
+  $reviews.appendChild($userImage)
+  $reviews.appendChild($userName)
+  $reviews.appendChild($userReview)
+  $business.appendChild($reviews)
+
+  // CSS to show
+  $business.style.visibility = 'visible'
+  $business.style.position = 'relative'
+
+  // CSS to hide
+  $review.style.visibility = 'hidden'
+}
+
+let toggleSingleBusiness = function(event) {
+
+  if (event.target.classList.value === 'review-name') {
+    // CSS to show
+    $business.style.visibility = 'visible'
+    $business.style.position = 'relative'
+
+    // CSS to hide
+    $review.style.visibility = 'hidden'
+  }
+}
+
   // **************** END **************** //
 
   // **************** EVENT LISTENERS **************** //
 // 1. Event listener that displays users' search.
 // 2. Event listener that displays business landing page.
 // 3. Event listener that shows the review form.
+// 4. Event listener that captures users' review input.
 $form.addEventListener('submit', showSearch)
 
 $businesses.addEventListener('click', showBusiness)
 
 $business.addEventListener('click', showReviewForm)
 
+$review.addEventListener('submit', postNewReview)
+
+$review.addEventListener('click', toggleSingleBusiness)
   // **************** END ****************//
