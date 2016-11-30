@@ -1,5 +1,6 @@
 let companies = [
   {
+    id: 0,
     img: "http://placehold.it/140x100",
     name: "Walmart",
     address: "10000 Harbor Santa Ana, CA",
@@ -10,6 +11,7 @@ let companies = [
     }
   },
   {
+    id: 1,
     img: "http://placehold.it/140x100",
     name: "Target",
     address: "1000 Seal Beach Blvd. Seal Beach, CA",
@@ -20,6 +22,7 @@ let companies = [
     }
   },
   {
+    id: 2,
     img: "http://placehold.it/140x100",
     name: "7-11",
     address: "100 Barranca Irvine, CA",
@@ -99,8 +102,7 @@ function newClassName(element, className) {
 
   return name;
 }
-
-  // **************** HELPER FUNCTIONS ****************//
+  // **************** END HELPER ****************//
 
   // **************** RENDER FUNCTIONS ****************//
 // Render function which displays businesses on the DOM.
@@ -116,20 +118,17 @@ function renderBusiness(item) {
 
   let $item = newClassName('div', 'business');
   let $thumbnail = newClassName('div', 'business-image');
-
   let $image = newClassName('img');
-  $image.setAttribute('src', item.img);
-  $thumbnail.appendChild($image);
-
+    $image.setAttribute('src', item.img);
+    $thumbnail.appendChild($image);
   let $name = newClassName('a', 'business-name');
-  $name.setAttribute('href', '#');
-  $name.textContent = item.name;
-
+    $name.setAttribute('href', '#');
+    $name.setAttribute('data-id', item.id);
+    $name.textContent = item.name;
   let $address = newClassName('span', 'business-address');
-  $address.textContent = item.address;
-
+    $address.textContent = item.address;
   let $review = newClassName('span', 'business-review');
-  $review.textContent = item.reviews.review;
+    $review.textContent = item.reviews.review;
 
   $item.appendChild($thumbnail);
   $item.appendChild($name);
@@ -140,26 +139,59 @@ function renderBusiness(item) {
 }
 
 // Render function that displays a business that is clicked by the user.
-// function renderSingleBusiness(item) {
-//
-//   // <div class="business-header">
-//   //   <h1 class="business-header-name">{ Business name }</h1>
-//   //   <div class="business-header-images">
-//   //     <img /> { Business Images }
-//   //   </div>
-//   // </div>
-//   // <div class="business-main-reviews">
-//   //   <img /> { User Images }
-//   //   <span>{ User Name }</span>
-//   //   <span>{ User Reviews }</span>
-//   // </div>
+function renderSingleBusiness(item) {
 
-  // **************** RENDER FUNCTIONS ****************//
+  // <div class="business-header">
+  //   <h1 class="business-header-name">{ Business name }</h1>
+  //   <div class="business-header-images">
+  //     <img /> { Business Images }
+  //   </div>
+  // </div>
+  // <div class="business-main-reviews">
+  //   <img /> { User Images }
+  //   <span>{ User Name }</span>
+  //   <span>{ User Reviews }</span>
+  // </div>
+
+  let $item = newClassName('div', 'business-header');
+  let $name = newClassName('h1', 'business-header-name');
+    $name.textContent = item.name;
+  let $imageDiv = newClassName('div', 'business-header-images');
+
+    let $businessImages = newClassName('img');
+    $businessImages.setAttribute('src', item.img);
+    // Goes in $businessImages
+    $imageDiv.appendChild($businessImages);
+  let $reviews = newClassName('div', 'business-main-reviews')
+
+    let $userImage = newClassName('img');
+    $userImage.setAttribute('src', item.reviews.img);
+    $reviews.appendChild($userImage);
+
+    let $userName = newClassName('span');
+    $userName.textContent = item.reviews.name;
+    $reviews.appendChild($userName);
+
+    let $userReviews = newClassName();
+    $userReviews.textContent = item.reviews.review;
+    $reviews.appendChild($userReviews);
+
+  $item.appendChild($name);
+  $item.appendChild($imageDiv);
+  $item.appendChild($reviews);
+
+  return $item;
+}
+  // **************** END RENDER ****************//
 
   // **************** EVENT LISTENERS ****************//
 // The $ sign preceding a variable name is a naming convention that represents a DOM element.
 let $form = document.getElementById('form-search');
 let $businesses = document.getElementById('businesses');
+<<<<<<< HEAD
+let $business = document.getElementById('business');
+=======
+>>>>>>> issue-5
 let $term = $form.querySelector('input');
 
 // Event listener for user input in the search form.
@@ -170,24 +202,51 @@ $form.addEventListener('submit', (event) => {
   empty($businesses);
 
   let userSearchValue = $term.value;
-
   if (!userSearchValue.trim()) return;
 
   let matchingBusinesses = userSearch(companies, userSearchValue);
 
+  // Conditional to fire `No Results Found Message`.
   if (matchingBusinesses.length === 0) {
     let $noResults = newClassName('h3', 'results');
-    $noResults.textContent = 'No Results for ' + userSearchValue
-    $businesses.appendChild($noResults);
+      $noResults.textContent = 'No Results for ' + userSearchValue;
+      $businesses.appendChild($noResults);
   }
   else {
-      // Loop through matching business and render the business on the page.
-    matchingBusinesses.forEach((item) => {
-      let $item = renderBusiness(item);
+    // Loop through matching business and render the business on the page.
+    matchingBusinesses.forEach((object) => {
+      let $item = renderBusiness(object);
       $businesses.appendChild($item);
+
+      // Sets the business list search css from hidden to visible
+      let $css = document.getElementById('businesses');
+      $css.style.visibility = 'visible';
+      $css.style.position = 'relative';
     });
   }
 
   $term.select();
 });
+<<<<<<< HEAD
+
+$businesses.addEventListener('click', (event) => {
+
+  if (event.target.classList.value === 'business-name') {
+    companies.forEach((object) => {
+      if (event.target.getAttribute('data-id') == object.id) {
+        let $singleBusiness = renderSingleBusiness(object);
+        $business.appendChild($singleBusiness);
+
+        // Sets the businesss list search css from visible to hidden
+        let $css = document.getElementById('businesses');
+        $css.style.visibility = 'hidden';
+        $css.style.position = 'absolute';
+      }
+    });
+  }
+
+});
+  // **************** END EVENT LISTENERS ****************//
+=======
   // **************** EVENT LISTENERS ****************//
+>>>>>>> issue-5
