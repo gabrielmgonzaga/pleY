@@ -25,7 +25,7 @@ let companies = [
     id: 2,
     img: "http://placehold.it/140x100",
     name: "7-11",
-    address: "100 Barranca Irvine, CA",
+    address: "100 Barranca Irvine, CA 92606",
     reviews: {
       img: "http://placehold.it/140x100",
       name: "perspiciatis unde",
@@ -37,7 +37,8 @@ let companies = [
   // **************** HELPER FUNCTIONS **************** //
 // 1. Removes targeted elements.
 // 2. Search function that matches business name with user input.
-// 3. Helper function to create class named elements.
+// 3. Search function that searches user location.
+// 4. Helper function to create class named elements.
 function empty(element) {
   while (element.firstChild) {
     element.removeChild(element.firstChild)
@@ -52,6 +53,16 @@ function userSearch(allItems, userText) {
   })
 
   return matchingBusinesses
+}
+
+function locationSearch(allItems, city) {
+  let matchingCities = allItems.filter((item) => {
+    let location = item.address
+    let match = location.toLowerCase().indexOf(city.toLowerCase()) > -1
+    return match
+  })
+
+  return matchingCities
 }
 
 function newClassName(element, className) {
@@ -235,7 +246,8 @@ function renderReviewForm(item) {
   // **************** EVENT LISTENER FUNCTIONS **************** //
 // The $ sign preceding a variable name is a naming convention that represents a DOM element.
 let $form = document.getElementById('form-search')
-let $term = $form.querySelector('input')
+let $term = $form.elements[0]
+let $locationTerm = $form.elements[1]
 
 let $businesses = document.getElementById('businesses')
 let $business = document.getElementById('business')
@@ -252,32 +264,50 @@ let showSearch = function(event) {
   empty($businesses)
 
   let userSearchValue = $term.value
-  if (!userSearchValue.trim()) return
+  let locationValue = $locationTerm.value
 
   let matchingBusinesses = userSearch(companies, userSearchValue)
+  let matchingCities = locationSearch(companies, locationValue)
 
-  // Conditional to fire `No Results Found Message`.
-  if (matchingBusinesses.length === 0) {
+  if (!locationValue.trim() && !userSearchValue.trim()) {
     let $noResults = newClassName('h3', 'results')
-      $noResults.textContent = 'No Results for ' + userSearchValue
+      $noResults.textContent = 'Hmm, something\'s missing?'
       $businesses.appendChild($noResults)
+      return
   }
-  else {
-    // Loop through matching business and render the business on the page.
-    matchingBusinesses.forEach((object) => {
-      let $item = renderBusinesses(object)
-      $businesses.appendChild($item)
 
-      // CSS to show.
-      $businesses.style.visibility = 'visible'
-      $businesses.style.position = 'relative'
-
-      // CSS to hide.
-      $business.style.visibility = 'hidden'
-      $business.style.position = 'relative'
-      $review.style.visibility = 'hidden'
-    })
+  switch (true) {
+    case matchingBusinesses.length === 0:
+      var $noResults = newClassName('h3', 'results')
+        $noResults.textContent = 'No Results for ' + userSearchValue
+        $businesses.appendChild($noResults)
+      break;
+    case matchingCities.length === 0:
+      var $sorry = newClassName('h3', 'results')
+        $sorry.textContent = 'Sorry, but we didn\'t understand the location you entered.'
+        $businesses.appendChild($sorry)
+      break;
+    case matchingBusinesses.length !== 0:
+      matchingBusinesses.forEach((item) => {
+        let $item = renderBusinesses(item)
+        $businesses.appendChild($item)
+      })
+      break;
+    case matchingCities.length !== 0:
+      matchingCities.forEach((item) => {
+        let $item = renderBusinesses(item)
+        $businesses.appendChild($item)
+      })
   }
+
+  // CSS to show.
+  $businesses.style.visibility = 'visible'
+  $businesses.style.position = 'relative'
+
+  // CSS to hide.
+  $business.style.visibility = 'hidden'
+  $business.style.position = 'relative'
+  $review.style.visibility = 'hidden'
 
   $term.select()
 }
@@ -381,6 +411,7 @@ let toggleSingleBusiness = function(event) {
 // 2. Event listener that displays business landing page.
 // 3. Event listener that shows the review form.
 // 4. Event listener that captures users' review input.
+// 5. Event listener that toggles between review form and it's associating business.
 $form.addEventListener('submit', showSearch)
 
 $businesses.addEventListener('click', showBusiness)
