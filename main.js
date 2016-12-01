@@ -34,6 +34,8 @@ let companies = [
   }
 ]
 
+let profile = []
+
   // **************** HELPER FUNCTIONS **************** //
 // 1. Removes targeted elements.
 // 2. Search function that matches business name with user input.
@@ -79,7 +81,7 @@ function newClassName(element, className) {
 // 1. Render function which displays businesses on the DOM.
 // 2. Render function that displays a business that is clicked by the user.
 // 3. Render function that builds the user review DOM.
-function renderBusinesses(item) {
+function buildBusinessList(item) {
 
   // <div class="business">
   //   <div class="business-thumbnail"><img src="{imageUrl}" />
@@ -116,7 +118,7 @@ function renderBusinesses(item) {
   return $item
 }
 
-function renderSingleBusiness(item) {
+function buildSingleBusiness(item) {
 
   // <div class="business-main">
   //   <div class="business-header">
@@ -173,7 +175,7 @@ function renderSingleBusiness(item) {
   return $main
 }
 
-function renderReviewForm(item) {
+function buildReviewForm(item) {
 
   // <div class="review-container">
   //   <h3 class="review-message"> { Write a Review }</h3>
@@ -241,6 +243,88 @@ function renderReviewForm(item) {
 
   return $main
 }
+
+function buildSignUpForm(item) {
+
+  // <div class="signup-main">
+  //   <div class=signup-left>
+  //     <span class="signup-main-message"> { Sign Up For Yelp }</div>
+  //     <span class="signup-second-message">{ Connect with great local businesses }</span>
+  //     <form id-"signup-form">
+  //       <input id="signup-firstname" type="text" />
+  //       <input id="signup-lastname" type="text" />
+  //       <input id="signup-email" type="text" />
+  //       <input id="signup-password" type="text" />
+  //       <input id="signup-zipcode" type="text" />
+  //       <button id="signup-button" type="submit">{ Sign Up }</button>
+  //     </form>
+  //   </div>
+  //   <div class="signup-right">
+  //     <img id="signup-image"/>
+  //   </div>
+  // </div>
+
+  let $Main = newClassName('div', 'signup-main')
+
+  let $Left = newClassName('div', 'signup-left')
+
+  let $message1 = newClassName('span', 'signup-main-message')
+  $message1.textContent = 'Sign Up For Yelp'
+  $Left.appendChild($message1)
+
+  let $message2 = newClassName('span', 'signup-second-message')
+  $message2.textContent = 'Connect with great local businesses'
+  $Left.appendChild($message2)
+
+  let $Form = newClassName('form')
+  $Form.setAttribute('id', 'signup-form')
+
+  let $firstname = newClassName('input')
+  $firstname.setAttribute('type', 'text')
+  $firstname.setAttribute('id', 'signup-firstname')
+  $Form.appendChild($firstname)
+
+  let $lastname = newClassName('input')
+  $lastname.setAttribute('type', 'text')
+  $lastname.setAttribute('id', 'signup-lastname')
+  $Form.appendChild($lastname)
+
+  let $email = newClassName('input')
+  $email.setAttribute('type', 'text')
+  $email.setAttribute('id', 'signup-email')
+  $Form.appendChild($email)
+
+  let $password = newClassName('input')
+  $password.setAttribute('type', 'text')
+  $password.setAttribute('id', 'signup-password')
+  $Form.appendChild($password)
+
+  let $zipcode = newClassName('input')
+  $zipcode.setAttribute('type', 'text')
+  $zipcode.setAttribute('id', 'signup-zipcode')
+  $Form.appendChild($zipcode)
+
+  let $button = newClassName('button')
+  $button.setAttribute('id', 'signup-button')
+  $button.setAttribute('type', 'submit')
+  $Form.appendChild($button)
+
+  $Left.appendChild($Form)
+
+  let $Right = newClassName('div', 'signup-right')
+
+  let $image = newClassName('img')
+  $image.setAttribute('id', 'signup-image')
+  $image.setAttribute('src', 'https://s3-media4.fl.yelpcdn.com/assets/2/www/img/1e82406ff345/signup/signup_illustration.png')
+  $image.setAttribute('height', '380px')
+  $image.setAttribute('width', '340px')
+  $Right.appendChild($image)
+
+  $Main.appendChild($Left)
+  $Main.appendChild($Right)
+
+  return $Main
+}
   // **************** END **************** //
 
   // **************** EVENT LISTENER FUNCTIONS **************** //
@@ -249,6 +333,9 @@ let $form = document.getElementById('form-search')
 let $term = $form.elements[0]
 let $locationTerm = $form.elements[1]
 
+let $signUp = document.getElementById('sign-up')
+
+let $signUpForm = document.getElementById('signup')
 let $businesses = document.getElementById('businesses')
 let $business = document.getElementById('business')
 let $review = document.getElementById('review')
@@ -258,7 +345,8 @@ let $review = document.getElementById('review')
 // 3. UI View for review form.
 // 4. UI View to submit new review.
 // 5. UI View to toggle between Review Form and Single Business.
-let showSearch = function(event) {
+let renderMainSearch = function(event) {
+
   event.preventDefault()
 
   empty($businesses)
@@ -292,19 +380,19 @@ let showSearch = function(event) {
   // Conditionals for search results.
   if (locationValue.trim() && userSearchValue.trim()) {
     return matchingCities.forEach((item) => {
-      let $item = renderBusinesses(item)
+      let $item = buildBusinessList(item)
       $businesses.appendChild($item)
     })
   }
   if (!userSearchValue.trim()) {
     return matchingCities.forEach((item) => {
-      let $item = renderBusinesses(item)
+      let $item = buildBusinessList(item)
       $businesses.appendChild($item)
     })
   }
   if (!locationValue.trim()) {
     return matchingBusinesses.forEach((item) => {
-      let $item = renderBusinesses(item)
+      let $item = buildBusinessList(item)
       $businesses.appendChild($item)
     })
   }
@@ -321,13 +409,13 @@ let showSearch = function(event) {
   $term.select()
 }
 
-let showBusiness = function(event) {
+let renderIndividualBusiness = function(event) {
   empty($business)
 
   if (event.target.classList.value === 'business-name') {
     companies.forEach((object) => {
       if (event.target.getAttribute('data-id') == object.id) {
-        let $singleBusiness = renderSingleBusiness(object)
+        let $singleBusiness = buildSingleBusiness(object)
         $business.appendChild($singleBusiness)
 
         // CSS to show.
@@ -341,13 +429,13 @@ let showBusiness = function(event) {
   }
 }
 
-let showReviewForm = function(event) {
+let renderReviewForm = function(event) {
   empty($review)
 
   if (event.target.classList.value === 'review-button') {
     companies.forEach((object) => {
       if (event.target.getAttribute('data-id') == object.id) {
-        let $form = renderReviewForm(object)
+        let $form = buildReviewForm(object)
         $review.appendChild($form)
 
         // CSS set to show.
@@ -361,7 +449,7 @@ let showReviewForm = function(event) {
   }
 }
 
-let postNewReview = function(event) {
+let renderNewReview = function(event) {
   event.preventDefault()
 
   let $form = document.getElementById('reviewForm')
@@ -401,7 +489,7 @@ let postNewReview = function(event) {
   $review.style.visibility = 'hidden'
 }
 
-let toggleSingleBusiness = function(event) {
+let renderToggleBusiness = function(event) {
 
   if (event.target.classList.value === 'review-name') {
     // CSS to show
@@ -413,6 +501,17 @@ let toggleSingleBusiness = function(event) {
   }
 }
 
+let renderSignUpForm = function(event) {
+
+  event.preventDefault()
+
+  empty($signUpForm)
+
+  if (event.target.getAttribute('id') === 'sign-up') {
+    let $view = buildSignUpForm()
+    $signUpForm.appendChild($view)
+  }
+}
   // **************** END **************** //
 
   // **************** EVENT LISTENERS **************** //
@@ -421,13 +520,15 @@ let toggleSingleBusiness = function(event) {
 // 3. Event listener that shows the review form.
 // 4. Event listener that captures users' review input.
 // 5. Event listener that toggles between review form and it's associating business.
-$form.addEventListener('submit', showSearch)
+$form.addEventListener('submit', renderMainSearch)
 
-$businesses.addEventListener('click', showBusiness)
+$signUp.addEventListener('click', renderSignUpForm)
 
-$business.addEventListener('click', showReviewForm)
+$businesses.addEventListener('click', renderIndividualBusiness)
 
-$review.addEventListener('submit', postNewReview)
+$business.addEventListener('click', renderReviewForm)
 
-$review.addEventListener('click', toggleSingleBusiness)
+$review.addEventListener('submit', renderNewReview)
+
+$review.addEventListener('click', renderToggleBusiness)
   // **************** END ****************//

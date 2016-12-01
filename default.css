@@ -17,7 +17,7 @@ body {
   position: relative;
   min-width: 1020px;
   height: 60px;
-  padding: 12px 0 6px;
+  padding: 12px 0 20px;
   background: #d32323 url(https:s3-media4.fl.yelpcdn.com/assets/srv0/yelp_styleguide/71b1e22bfb1f/assets/img/structural/header_stars.png) no-repeat center;
   top: 0;
   left: 0;
@@ -27,7 +27,7 @@ body {
   position: relative;
   width: 960px;
   height: 80%;
-  margin-left: 70px;
+  margin-left: 100px;
 }
 
 #logo {
@@ -78,6 +78,37 @@ body {
 
 #nav-btn i {
   font-size: 16px;
+  color: #fff;
+}
+
+#sign-up:hover {
+  cursor: pointer;
+  background: linear-gradient(#d90007,#c91400);
+  outline: 0;
+}
+
+#sign-up {
+  position: absolute;
+  height: 35px;
+  width: 100px;
+  top: 0;
+  left: 800px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #d90007;
+  border: 1px solid #5b0000;
+  outline: 0;
+  border-radius: 4px;
+}
+
+#log-in {
+  width: 50px;
+  position: absolute;
+  top: 40px;
+  left: 833px;
+  font-size: 13px;
+  font-weight: bold;
   color: #fff;
 }
 
@@ -353,5 +384,9 @@ a {
 and (min-width : 1824px) {
   body {
     width: 75%;
+  }
+
+  #content-container {
+    margin: 0 auto;
   }
 }
