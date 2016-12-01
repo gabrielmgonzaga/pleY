@@ -57,7 +57,7 @@ function userSearch(allItems, userText) {
 
 function locationSearch(allItems, city) {
   let matchingCities = allItems.filter((item) => {
-    let location = item.address
+    let location = item.address + item.name
     let match = location.toLowerCase().indexOf(city.toLowerCase()) > -1
     return match
   })
@@ -269,6 +269,19 @@ let showSearch = function(event) {
   let matchingBusinesses = userSearch(companies, userSearchValue)
   let matchingCities = locationSearch(companies, locationValue)
 
+  // Conditionals for no user input.
+  if (matchingBusinesses.length === 0 ) {
+    var $noResults = newClassName('h3', 'results')
+      $noResults.textContent = 'No Results for ' + userSearchValue
+      $businesses.appendChild($noResults)
+      return
+  }
+  if (matchingCities.length === 0) {
+    let $sorry = newClassName('h3', 'results')
+      $sorry.textContent = 'Sorry, but we didn\'t understand the location you entered.'
+      $businesses.appendChild($sorry)
+      return
+  }
   if (!locationValue.trim() && !userSearchValue.trim()) {
     let $noResults = newClassName('h3', 'results')
       $noResults.textContent = 'Hmm, something\'s missing?'
@@ -276,28 +289,24 @@ let showSearch = function(event) {
       return
   }
 
-  switch (true) {
-    case matchingBusinesses.length === 0:
-      var $noResults = newClassName('h3', 'results')
-        $noResults.textContent = 'No Results for ' + userSearchValue
-        $businesses.appendChild($noResults)
-      break;
-    case matchingCities.length === 0:
-      var $sorry = newClassName('h3', 'results')
-        $sorry.textContent = 'Sorry, but we didn\'t understand the location you entered.'
-        $businesses.appendChild($sorry)
-      break;
-    case matchingBusinesses.length !== 0:
-      matchingBusinesses.forEach((item) => {
-        let $item = renderBusinesses(item)
-        $businesses.appendChild($item)
-      })
-      break;
-    case matchingCities.length !== 0:
-      matchingCities.forEach((item) => {
-        let $item = renderBusinesses(item)
-        $businesses.appendChild($item)
-      })
+  // Conditionals for search results.
+  if (locationValue.trim() && userSearchValue.trim()) {
+    return matchingCities.forEach((item) => {
+      let $item = renderBusinesses(item)
+      $businesses.appendChild($item)
+    })
+  }
+  if (!userSearchValue.trim()) {
+    return matchingCities.forEach((item) => {
+      let $item = renderBusinesses(item)
+      $businesses.appendChild($item)
+    })
+  }
+  if (!locationValue.trim()) {
+    return matchingBusinesses.forEach((item) => {
+      let $item = renderBusinesses(item)
+      $businesses.appendChild($item)
+    })
   }
 
   // CSS to show.
