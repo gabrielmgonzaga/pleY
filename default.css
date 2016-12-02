@@ -55,7 +55,7 @@ body {
   border-radius: 5px;
   border: 1px solid #ccc;
   height: 30px;
-  width: 370px;
+  width: 335px;
 }
 
 #nav-btn:hover {
@@ -65,9 +65,11 @@ body {
 }
 
 #nav-btn {
+  position: absolute;
   height: 35px;
   width: 55px;
-  margin-left: 5px;
+  top: 0;
+  left: 710px;
   background-color: #d90007;
   border: 1px solid #5b0000;
   outline: 0;
