@@ -30,14 +30,21 @@ body {
   margin-left: 100px;
 }
 
+#burst {
+  position: absolute;
+  top: 0;
+  left: 50px;
+  height: 75px;
+  width: 75px;
+}
+
 #logo {
   position: absolute;
-  width: 100px;
-  height: 50px;
-  padding: 0;
-  margin-bottom: 0;
-  background: url(https:s3-media3.fl.yelpcdn.com/assets/srv0/yelp_styleguide/f139a5c9584c/assets/img/logos/header_logo_desktop.png) no-repeat;
-  background-size: 100px 50px;
+  top: 15px;
+  left: 10px;
+  font-size: 300%;
+  font-weight: 600;
+  color: white;
 }
 
 #search {
@@ -474,5 +481,9 @@ and (min-width : 1824px) {
 
   #content-container {
     margin: 0 auto;
+  }
+
+  #burst {
+    left: 265px;
   }
 }
