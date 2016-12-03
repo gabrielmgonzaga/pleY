@@ -102,16 +102,6 @@ body {
   border-radius: 4px;
 }
 
-#log-in {
-  width: 50px;
-  position: absolute;
-  top: 40px;
-  left: 833px;
-  font-size: 13px;
-  font-weight: bold;
-  color: #fff;
-}
-
 .results {
   width: 100%;
   margin-top: 0;
@@ -377,6 +367,102 @@ a {
    box-shadow: 0 1px 1px rgba(0,0,0,.3);
    border-radius: 4px;
  }
+
+ /*** Sign-up Form ***/
+
+.signup-main {
+  width: 100%;
+}
+
+.signup-left {
+  display: inline-block;
+  width: 50%;
+}
+
+.signup-heading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #d32323;
+}
+
+.signup-subheading {
+  position: absolute;
+  top: 35px;
+  left: 0;
+  font-weight: bold;
+}
+
+.signup-right {
+  display: inline-block;
+  width: 50%;
+}
+
+.signup-input {
+  position: absolute;
+  padding: 8px 0 8px 6px;
+  font-size: 14px;
+  color: #000;
+  background: rgba(250,250,249,.9);
+  border: 1px solid #bbb;
+  border-color: #999995;
+  box-shadow: inset 0 2px 2px rgba(0,0,0,.15),0 0 6px rgba(0,126,255,.5);
+  border-radius: 4px;
+}
+
+#signup-firstname {
+  top: 70px;
+  left: 0;
+  width: 200px;
+}
+
+#signup-lastname {
+  top: 70px;
+  left: 210px;
+  width: 200px;
+}
+
+#signup-email {
+  top: 115px;
+  left: 0;
+  width: 410px;
+}
+
+#signup-password {
+  top: 160px;
+  left: 0;
+  width: 410px;
+}
+
+#signup-zip {
+  top: 205px;
+  left: 0;
+  width: 410px;
+}
+
+#signup-button:hover {
+  cursor: pointer;
+  background: linear-gradient(#d90007,#c91400);
+}
+
+#signup-button {
+  top: 250px;
+  left: 0;
+  width: 415px;
+  height: 40px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #d90007;
+  border: 1px solid #8d0005;
+  box-shadow: 0 1px 1px rgba(0,0,0,.3);
+  border-radius: 4px;
+}
+
+/*** User Profile ***/
 
 /*** Media Queries ***/
 

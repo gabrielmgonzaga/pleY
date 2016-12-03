@@ -34,13 +34,13 @@ let companies = [
   }
 ]
 
-let profile = []
-
   // **************** HELPER FUNCTIONS **************** //
 // 1. Removes targeted elements.
 // 2. Search function that matches business name with user input.
 // 3. Search function that searches user location.
 // 4. Helper function to create class named elements.
+// 5 - 6. CSS to toggle between show/hide.
+// 7 - 8. CSS to toggle between absolute/relative.
 function empty(element) {
   while (element.firstChild) {
     element.removeChild(element.firstChild)
@@ -75,12 +75,34 @@ function newClassName(element, className) {
 
   return name
 }
+
+function hide(id) {
+  let a = id
+  return a.style.visibility = 'hidden'
+}
+
+function show(id) {
+  let a = id
+  return a.style.visibility = 'visible'
+}
+
+function absolute(id) {
+  let a = id
+  return a.style.position = 'absolute'
+}
+
+function relative(id) {
+  let a = id
+  return a.style.position = 'relative'
+}
   // **************** END **************** //
 
   // **************** DOM_Creation FUNCTIONS **************** //
-// 1. Render function which displays businesses on the DOM.
-// 2. Render function that displays a business that is clicked by the user.
-// 3. Render function that builds the user review DOM.
+// 1. Function which displays businesses on the DOM.
+// 2. Function that displays a business that is clicked by the user.
+// 3. Function that builds the user review DOM.
+// 4. Function that builds the Sign Up Form.
+// 5. Function that builds Users' Profile.
 function buildBusinessList(item) {
 
   // <div class="business">
@@ -244,7 +266,7 @@ function buildReviewForm(item) {
   return $main
 }
 
-function buildSignUpForm(item) {
+function buildSignUpForm() {
 
   // <div class="signup-main">
   //   <div class=signup-left>
@@ -255,7 +277,7 @@ function buildSignUpForm(item) {
   //       <input id="signup-lastname" type="text" />
   //       <input id="signup-email" type="text" />
   //       <input id="signup-password" type="text" />
-  //       <input id="signup-zipcode" type="text" />
+  //       <input id="signup-zip" type="text" />
   //       <button id="signup-button" type="submit">{ Sign Up }</button>
   //     </form>
   //   </div>
@@ -268,45 +290,51 @@ function buildSignUpForm(item) {
 
   let $Left = newClassName('div', 'signup-left')
 
-  let $message1 = newClassName('span', 'signup-main-message')
+  let $message1 = newClassName('span', 'signup-heading')
   $message1.textContent = 'Sign Up For Yelp'
   $Left.appendChild($message1)
 
-  let $message2 = newClassName('span', 'signup-second-message')
+  let $message2 = newClassName('span', 'signup-subheading')
   $message2.textContent = 'Connect with great local businesses'
   $Left.appendChild($message2)
 
   let $Form = newClassName('form')
   $Form.setAttribute('id', 'signup-form')
 
-  let $firstname = newClassName('input')
+  let $firstname = newClassName('input', 'signup-input')
   $firstname.setAttribute('type', 'text')
   $firstname.setAttribute('id', 'signup-firstname')
+  $firstname.setAttribute('placeholder', 'First Name')
   $Form.appendChild($firstname)
 
-  let $lastname = newClassName('input')
+  let $lastname = newClassName('input', 'signup-input')
   $lastname.setAttribute('type', 'text')
   $lastname.setAttribute('id', 'signup-lastname')
+  $lastname.setAttribute('placeholder', 'Last Name')
   $Form.appendChild($lastname)
 
-  let $email = newClassName('input')
+  let $email = newClassName('input', 'signup-input')
   $email.setAttribute('type', 'text')
   $email.setAttribute('id', 'signup-email')
+  $email.setAttribute('placeholder', 'Email')
   $Form.appendChild($email)
 
-  let $password = newClassName('input')
-  $password.setAttribute('type', 'text')
+  let $password = newClassName('input', 'signup-input')
+  $password.setAttribute('type', 'password')
   $password.setAttribute('id', 'signup-password')
+  $password.setAttribute('placeholder', 'Password')
   $Form.appendChild($password)
 
-  let $zipcode = newClassName('input')
-  $zipcode.setAttribute('type', 'text')
-  $zipcode.setAttribute('id', 'signup-zipcode')
-  $Form.appendChild($zipcode)
+  let $zip = newClassName('input', 'signup-input')
+  $zip.setAttribute('type', 'text')
+  $zip.setAttribute('id', 'signup-zip')
+  $zip.setAttribute('placeholder', 'zip')
+  $Form.appendChild($zip)
 
-  let $button = newClassName('button')
+  let $button = newClassName('button', 'signup-input')
   $button.setAttribute('id', 'signup-button')
   $button.setAttribute('type', 'submit')
+  $button.textContent = 'Sign Up'
   $Form.appendChild($button)
 
   $Left.appendChild($Form)
@@ -316,12 +344,40 @@ function buildSignUpForm(item) {
   let $image = newClassName('img')
   $image.setAttribute('id', 'signup-image')
   $image.setAttribute('src', 'https://s3-media4.fl.yelpcdn.com/assets/2/www/img/1e82406ff345/signup/signup_illustration.png')
-  $image.setAttribute('height', '380px')
-  $image.setAttribute('width', '340px')
+  $image.setAttribute('height', '365px')
+  $image.setAttribute('width', '400px')
   $Right.appendChild($image)
 
   $Main.appendChild($Left)
   $Main.appendChild($Right)
+
+  return $Main
+}
+
+function buildUserProfile(item) {
+
+  // <div id="profile-main">
+  //   <img src="http://placehold.it/140x100" class="profile-image"/>
+  //   <span class=profile-name></span>
+  //   <span class="profile-city"></span>
+  // </div>
+
+  let $Main = newClassName('div', 'profile-main')
+
+  let $img = newClassName('img', 'profile-image')
+  $img.setAttribute('src', 'http://placehold.it/140x100')
+  $img.setAttribute('height', '200px')
+  $img.setAttribute('width', '200px')
+
+  let $name = newClassName('span', 'profile-name')
+  $name.textContent = 'Name: ' + item.first + ' ' + item.last
+
+  let $city = newClassName('span', 'profile-city')
+  $city.textContent = item.zip
+
+  $Main.appendChild($img)
+  $Main.appendChild($name)
+  $Main.appendChild($city)
 
   return $Main
 }
@@ -333,23 +389,31 @@ let $form = document.getElementById('form-search')
 let $term = $form.elements[0]
 let $locationTerm = $form.elements[1]
 
-let $signUp = document.getElementById('sign-up')
+let $signUp = document.getElementById('signup')
+let $signUpButton = document.getElementById('sign-up')
 
-let $signUpForm = document.getElementById('signup')
 let $businesses = document.getElementById('businesses')
 let $business = document.getElementById('business')
 let $review = document.getElementById('review')
+let $profile = document.getElementById('profile')
 
 // 1. UI View for user search.
 // 2. UI View for single business.
 // 3. UI View for review form.
 // 4. UI View to submit new review.
 // 5. UI View to toggle between Review Form and Single Business.
-let renderMainSearch = function(event) {
+// 6. UI View for the user sign up form.
+let submitMainSearch = function(event) {
 
   event.preventDefault()
 
   empty($businesses)
+  empty($business)
+  empty($review)
+  empty($signUp)
+  empty($profile)
+
+  show($businesses)
 
   let userSearchValue = $term.value
   let locationValue = $locationTerm.value
@@ -397,59 +461,52 @@ let renderMainSearch = function(event) {
     })
   }
 
-  // CSS to show.
-  $businesses.style.visibility = 'visible'
-  $businesses.style.position = 'relative'
-
-  // CSS to hide.
-  $business.style.visibility = 'hidden'
-  $business.style.position = 'relative'
-  $review.style.visibility = 'hidden'
-
   $term.select()
+  $locationTerm.select()
 }
 
 let renderIndividualBusiness = function(event) {
+
   empty($business)
 
+  hide($businesses)
+  absolute($businesses)
+
   if (event.target.classList.value === 'business-name') {
+
+    show($business)
+    relative($business)
+
     companies.forEach((object) => {
       if (event.target.getAttribute('data-id') == object.id) {
         let $singleBusiness = buildSingleBusiness(object)
         $business.appendChild($singleBusiness)
-
-        // CSS to show.
-        $business.style.visibility = 'visible'
-
-        // CSS to hide.
-        $businesses.style.visibility = 'hidden'
-        $businesses.style.position = 'absolute'
       }
     })
   }
 }
 
 let renderReviewForm = function(event) {
+
   empty($review)
 
   if (event.target.classList.value === 'review-button') {
+
+    show($review)
+    hide($business)
+    absolute($business)
+
     companies.forEach((object) => {
       if (event.target.getAttribute('data-id') == object.id) {
         let $form = buildReviewForm(object)
         $review.appendChild($form)
-
-        // CSS set to show.
-        $review.style.visibility = 'visible'
-
-        // CSS to hide.
-        $business.style.visibility = 'hidden'
-        $business.style.position = 'absolute'
       }
     })
   }
 }
 
-let renderNewReview = function(event) {
+let submitNewReview = function(event) {
+
   event.preventDefault()
 
   let $form = document.getElementById('reviewForm')
@@ -460,6 +517,7 @@ let renderNewReview = function(event) {
 
   let $textTerm = $form.querySelector('textarea')
   let review = $textTerm.value
+  if (!review) return
 
   let $reviews = newClassName('div', 'business-main-reviews')
 
@@ -481,23 +539,22 @@ let renderNewReview = function(event) {
   $reviews.appendChild($userReview)
   $business.appendChild($reviews)
 
-  // CSS to show
-  $business.style.visibility = 'visible'
-  $business.style.position = 'relative'
+  // CSS to show/hide.
+  show($business)
+  relative($business)
 
-  // CSS to hide
-  $review.style.visibility = 'hidden'
+  hide($review)
 }
 
 let renderToggleBusiness = function(event) {
 
   if (event.target.classList.value === 'review-name') {
     // CSS to show
-    $business.style.visibility = 'visible'
-    $business.style.position = 'relative'
+    show($business)
+    relative($business)
 
     // CSS to hide
-    $review.style.visibility = 'hidden'
+    hide($review)
   }
 }
 
@@ -505,12 +562,54 @@ let renderSignUpForm = function(event) {
 
   event.preventDefault()
 
-  empty($signUpForm)
+  empty($signUp)
 
   if (event.target.getAttribute('id') === 'sign-up') {
+
+    hide($businesses)
+    hide($business)
+    hide($review)
+
     let $view = buildSignUpForm()
-    $signUpForm.appendChild($view)
+    $signUp.appendChild($view)
   }
+}
+
+let submitNewProfile = function(event) {
+
+  event.preventDefault()
+
+  let $signUpForm = document.getElementById('signup-form')
+  let $firstname = $signUpForm.elements[0]
+  let $lastname = $signUpForm.elements[1]
+  let $email = $signUpForm.elements[2]
+  let $password = $signUpForm.elements[3]
+  let $zip = $signUpForm.elements[4]
+
+  let lastname = $lastname.value
+  let email = $email.value
+  let password = $password.value
+  let zip = $zip.value
+
+  localStorage.setItem('1', JSON.stringify({
+    first: $firstname.value,
+    last: lastname,
+    email: email,
+    password: password,
+    zip: zip
+  }))
+
+  let get = localStorage.getItem('1')
+  let person = JSON.parse(get)
+
+  let $person = buildUserProfile(person)
+  $profile.appendChild($person)
+
+  // Hides Sign Up button on submission.
+  let $button = document.getElementById('sign-up')
+  hide($button)
+
+  empty($signUp)
 }
   // **************** END **************** //
 
@@ -520,15 +619,18 @@ let renderSignUpForm = function(event) {
 // 3. Event listener that shows the review form.
 // 4. Event listener that captures users' review input.
 // 5. Event listener that toggles between review form and it's associating business.
-$form.addEventListener('submit', renderMainSearch)
+// 6. Event listener on the sign up submission.
+$form.addEventListener('submit', submitMainSearch)
 
-$signUp.addEventListener('click', renderSignUpForm)
+$signUpButton.addEventListener('click', renderSignUpForm)
 
 $businesses.addEventListener('click', renderIndividualBusiness)
 
 $business.addEventListener('click', renderReviewForm)
 
-$review.addEventListener('submit', renderNewReview)
+$review.addEventListener('submit', submitNewReview)
 
 $review.addEventListener('click', renderToggleBusiness)
+
+$signUp.addEventListener('submit', submitNewProfile)
   // **************** END ****************//
