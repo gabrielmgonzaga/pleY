@@ -1,33 +1,33 @@
 let companies = [
   {
     id: 0,
-    img: "http://placehold.it/140x100",
+    img: "https://s3-media1.fl.yelpcdn.com/bphoto/ogf44L114KyyySK0Vbun9g/o.jpg",
     name: "Walmart",
-    address: "10000 Harbor Santa Ana, CA",
+    address: "10120 Harbor Santa Ana, CA",
     reviews: {
-        img: "http://placehold.it/140x100",
+        img: "http://emerysapp.com/wp-content/themes/emerysapp/img/person-placeholder.png",
         name: "illum qui",
         review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     }
   },
   {
     id: 1,
-    img: "http://placehold.it/140x100",
+    img: "https://s3-media1.fl.yelpcdn.com/bphoto/JfNJ3j2vxczVT3Wkdde2hQ/ls.jpg",
     name: "Target",
-    address: "1000 Seal Beach Blvd. Seal Beach, CA",
+    address: "1122 Seal Beach Blvd. Seal Beach, CA",
     reviews: {
-      img: "http://placehold.it/140x100",
+      img: "http://emerysapp.com/wp-content/themes/emerysapp/img/person-placeholder.png",
       name: "quasi architecto",
       review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     }
   },
   {
     id: 2,
-    img: "http://placehold.it/140x100",
+    img: "https://s3-media1.fl.yelpcdn.com/bphoto/8kKssMrOMAUpW5m9qTQ65A/o.jpg",
     name: "7-11",
-    address: "100 Barranca Irvine, CA 92606",
+    address: "380 Barranca Irvine, CA 92606",
     reviews: {
-      img: "http://placehold.it/140x100",
+      img: "http://emerysapp.com/wp-content/themes/emerysapp/img/person-placeholder.png",
       name: "perspiciatis unde",
       review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     }
@@ -41,6 +41,7 @@ let companies = [
 // 4. Helper function to create class named elements.
 // 5 - 6. CSS to toggle between show/hide.
 // 7 - 8. CSS to toggle between absolute/relative.
+// 8. CSS to add red border in input isn't valid.
 function empty(element) {
   while (element.firstChild) {
     element.removeChild(element.firstChild)
@@ -94,6 +95,16 @@ function absolute(id) {
 function relative(id) {
   let a = id
   return a.style.position = 'relative'
+}
+
+function red(id) {
+  let a = id
+  return a.style.border = '1px solid #d90007'
+}
+
+function green(id) {
+  let a = id
+  a.style.border = '1px solid green'
 }
   // **************** END **************** //
 
@@ -221,7 +232,7 @@ function buildReviewForm(item) {
   $message.textContent = 'Write a Review'
 
   let $img = newClassName('img')
-  $img.setAttribute('src', item.reviews.img)
+  $img.setAttribute('src', item.img)
   $img.setAttribute('id','reviewImage')
 
   let $name = newClassName('a', 'review-name')
@@ -291,7 +302,7 @@ function buildSignUpForm() {
   let $Left = newClassName('div', 'signup-left')
 
   let $message1 = newClassName('span', 'signup-heading')
-  $message1.textContent = 'Sign Up For Yelp'
+  $message1.textContent = 'Sign Up For pleY'
   $Left.appendChild($message1)
 
   let $message2 = newClassName('span', 'signup-subheading')
@@ -328,7 +339,7 @@ function buildSignUpForm() {
   let $zip = newClassName('input', 'signup-input')
   $zip.setAttribute('type', 'text')
   $zip.setAttribute('id', 'signup-zip')
-  $zip.setAttribute('placeholder', 'zip')
+  $zip.setAttribute('placeholder', 'City')
   $Form.appendChild($zip)
 
   let $button = newClassName('button', 'signup-input')
@@ -365,7 +376,7 @@ function buildUserProfile(item) {
   let $Main = newClassName('div', 'profile-main')
 
   let $img = newClassName('img', 'profile-image')
-  $img.setAttribute('src', 'http://placehold.it/140x100')
+  $img.setAttribute('src', 'data:image/png;base64,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')
   $img.setAttribute('height', '200px')
   $img.setAttribute('width', '200px')
 
@@ -373,7 +384,7 @@ function buildUserProfile(item) {
   $name.textContent = 'Name: ' + item.first + ' ' + item.last
 
   let $city = newClassName('span', 'profile-city')
-  $city.textContent = item.zip
+  $city.textContent = 'City: ' + item.city
 
   $Main.appendChild($img)
   $Main.appendChild($name)
@@ -385,6 +396,7 @@ function buildUserProfile(item) {
 
   // **************** EVENT LISTENER FUNCTIONS **************** //
 // The $ sign preceding a variable name is a naming convention that represents a DOM element.
+let $landing = document.getElementById('landing')
 let $form = document.getElementById('form-search')
 let $term = $form.elements[0]
 let $locationTerm = $form.elements[1]
@@ -412,6 +424,7 @@ let submitMainSearch = function(event) {
   empty($review)
   empty($signUp)
   empty($profile)
+  empty($landing)
 
   show($businesses)
 
@@ -610,6 +623,54 @@ let submitNewProfile = function(event) {
   hide($button)
 
   empty($signUp)
+  hide($landing)
+}
+
+let submitLandingProfile = function(event) {
+
+  event.preventDefault()
+
+  let $landingForm = document.getElementById('landing-form')
+
+  let $firstname = $landingForm.elements[0]
+  if (!$firstname.value) return red($firstname)
+  else green($firstname)
+
+  let $lastname = $landingForm.elements[1]
+  if (!$lastname.value) return red($lastname)
+  else green($lastname)
+
+  let $email = $landingForm.elements[2]
+  if (!$email.value) return red($email)
+  else green($email)
+
+  let $password = $landingForm.elements[3]
+  if (!$password.value) return red($password)
+  else green($password)
+
+  let $city = $landingForm.elements[4]
+  if (!$city.value) return red($city)
+  else green($city)
+
+  localStorage.setItem('1', JSON.stringify({
+    first: $firstname.value,
+    last: $lastname.value,
+    email: $email.value,
+    password: $password.value,
+    city: $city.value
+  }))
+
+  let get = localStorage.getItem('1')
+  let person = JSON.parse(get)
+
+  let $person = buildUserProfile(person)
+  $profile.appendChild($person)
+
+  // Hides Sign Up button on submission.
+  let $button = document.getElementById('sign-up')
+  hide($button)
+
+  empty($landing)
 }
   // **************** END **************** //
 
@@ -633,4 +694,6 @@ $review.addEventListener('submit', submitNewReview)
 $review.addEventListener('click', renderToggleBusiness)
 
 $signUp.addEventListener('submit', submitNewProfile)
+
+$landing.addEventListener('submit', submitLandingProfile)
   // **************** END ****************//

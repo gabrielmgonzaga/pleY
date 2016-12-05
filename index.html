@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="default.css" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
   </head>
   <body>
     <!-- Navigation -->
@@ -36,7 +36,26 @@
 
     <div id="main">
       <div id="left">
-        <!-- UI View -->
+        <div id="landing">
+          <div class="landing-main">
+            <div class="landing-left">
+              <span class="landing-heading">Sign Up For pleY</span>
+              <span class="landing-subheading">Connect with great local businesses</span>
+              <form id="landing-form">
+                <input class="landing-input" id="landing-firstname" type="text" placeholder="First Name"/>
+                <input class="landing-input" id="landing-lastname" type="text" placeholder="Last Name" />
+                <input class="landing-input" id="landing-email" type="text" placeholder="Email" />
+                <input class="landing-input" id="landing-password" type="text" placeholder="Password" />
+                <input class="landing-input" id="landing-zip" type="text" placeholder="City" />
+                <button class="landing-input" id="landing-button" type="submit">Sign Up</button>
+              </form>
+            </div>
+            <div class="landing-right">
+              <img id="landing-image" src="https://s3-media4.fl.yelpcdn.com/assets/2/www/img/1e82406ff345/signup/signup_illustration.png"/>
+            </div>
+          </div>
+        </div>
+          <!-- UI View -->
         <div id="signup"></div>
         <div id="businesses"></div>
         <div id="business"></div>
