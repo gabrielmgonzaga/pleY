@@ -1,33 +1,33 @@
 let companies = [
   {
     id: 0,
-    img: "http://placehold.it/140x100",
+    img: "https://s3-media1.fl.yelpcdn.com/bphoto/ogf44L114KyyySK0Vbun9g/o.jpg",
     name: "Walmart",
-    address: "10000 Harbor Santa Ana, CA",
+    address: "10120 Harbor Santa Ana, CA",
     reviews: {
-        img: "http://placehold.it/140x100",
+        img: "http://emerysapp.com/wp-content/themes/emerysapp/img/person-placeholder.png",
         name: "illum qui",
         review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     }
   },
   {
     id: 1,
-    img: "http://placehold.it/140x100",
+    img: "https://s3-media1.fl.yelpcdn.com/bphoto/JfNJ3j2vxczVT3Wkdde2hQ/ls.jpg",
     name: "Target",
-    address: "1000 Seal Beach Blvd. Seal Beach, CA",
+    address: "1122 Seal Beach Blvd. Seal Beach, CA",
     reviews: {
-      img: "http://placehold.it/140x100",
+      img: "http://emerysapp.com/wp-content/themes/emerysapp/img/person-placeholder.png",
       name: "quasi architecto",
       review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     }
   },
   {
     id: 2,
-    img: "http://placehold.it/140x100",
+    img: "https://s3-media1.fl.yelpcdn.com/bphoto/8kKssMrOMAUpW5m9qTQ65A/o.jpg",
     name: "7-11",
-    address: "100 Barranca Irvine, CA 92606",
+    address: "380 Barranca Irvine, CA 92606",
     reviews: {
-      img: "http://placehold.it/140x100",
+      img: "http://emerysapp.com/wp-content/themes/emerysapp/img/person-placeholder.png",
       name: "perspiciatis unde",
       review: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
     }
@@ -39,6 +39,9 @@ let companies = [
 // 2. Search function that matches business name with user input.
 // 3. Search function that searches user location.
 // 4. Helper function to create class named elements.
+// 5 - 6. CSS to toggle between show/hide.
+// 7 - 8. CSS to toggle between absolute/relative.
+// 8. CSS to add red border in input isn't valid.
 function empty(element) {
   while (element.firstChild) {
     element.removeChild(element.firstChild)
@@ -73,13 +76,45 @@ function newClassName(element, className) {
 
   return name
 }
+
+function hide(id) {
+  let a = id
+  return a.style.visibility = 'hidden'
+}
+
+function show(id) {
+  let a = id
+  return a.style.visibility = 'visible'
+}
+
+function absolute(id) {
+  let a = id
+  return a.style.position = 'absolute'
+}
+
+function relative(id) {
+  let a = id
+  return a.style.position = 'relative'
+}
+
+function red(id) {
+  let a = id
+  return a.style.border = '1px solid #d90007'
+}
+
+function green(id) {
+  let a = id
+  a.style.border = '1px solid green'
+}
   // **************** END **************** //
 
   // **************** DOM_Creation FUNCTIONS **************** //
-// 1. Render function which displays businesses on the DOM.
-// 2. Render function that displays a business that is clicked by the user.
-// 3. Render function that builds the user review DOM.
-function renderBusinesses(item) {
+// 1. Function which displays businesses on the DOM.
+// 2. Function that displays a business that is clicked by the user.
+// 3. Function that builds the user review DOM.
+// 4. Function that builds the Sign Up Form.
+// 5. Function that builds Users' Profile.
+function buildBusinessList(item) {
 
   // <div class="business">
   //   <div class="business-thumbnail"><img src="{imageUrl}" />
@@ -116,7 +151,7 @@ function renderBusinesses(item) {
   return $item
 }
 
-function renderSingleBusiness(item) {
+function buildSingleBusiness(item) {
 
   // <div class="business-main">
   //   <div class="business-header">
@@ -173,7 +208,7 @@ function renderSingleBusiness(item) {
   return $main
 }
 
-function renderReviewForm(item) {
+function buildReviewForm(item) {
 
   // <div class="review-container">
   //   <h3 class="review-message"> { Write a Review }</h3>
@@ -197,7 +232,7 @@ function renderReviewForm(item) {
   $message.textContent = 'Write a Review'
 
   let $img = newClassName('img')
-  $img.setAttribute('src', item.reviews.img)
+  $img.setAttribute('src', item.img)
   $img.setAttribute('id','reviewImage')
 
   let $name = newClassName('a', 'review-name')
@@ -241,27 +276,157 @@ function renderReviewForm(item) {
 
   return $main
 }
+
+function buildSignUpForm() {
+
+  // <div class="signup-main">
+  //   <div class=signup-left>
+  //     <span class="signup-main-message"> { Sign Up For Yelp }</div>
+  //     <span class="signup-second-message">{ Connect with great local businesses }</span>
+  //     <form id-"signup-form">
+  //       <input id="signup-firstname" type="text" />
+  //       <input id="signup-lastname" type="text" />
+  //       <input id="signup-email" type="text" />
+  //       <input id="signup-password" type="text" />
+  //       <input id="signup-zip" type="text" />
+  //       <button id="signup-button" type="submit">{ Sign Up }</button>
+  //     </form>
+  //   </div>
+  //   <div class="signup-right">
+  //     <img id="signup-image"/>
+  //   </div>
+  // </div>
+
+  let $Main = newClassName('div', 'signup-main')
+
+  let $Left = newClassName('div', 'signup-left')
+
+  let $message1 = newClassName('span', 'signup-heading')
+  $message1.textContent = 'Sign Up For pleY'
+  $Left.appendChild($message1)
+
+  let $message2 = newClassName('span', 'signup-subheading')
+  $message2.textContent = 'Connect with great local businesses'
+  $Left.appendChild($message2)
+
+  let $Form = newClassName('form')
+  $Form.setAttribute('id', 'signup-form')
+
+  let $firstname = newClassName('input', 'signup-input')
+  $firstname.setAttribute('type', 'text')
+  $firstname.setAttribute('id', 'signup-firstname')
+  $firstname.setAttribute('placeholder', 'First Name')
+  $Form.appendChild($firstname)
+
+  let $lastname = newClassName('input', 'signup-input')
+  $lastname.setAttribute('type', 'text')
+  $lastname.setAttribute('id', 'signup-lastname')
+  $lastname.setAttribute('placeholder', 'Last Name')
+  $Form.appendChild($lastname)
+
+  let $email = newClassName('input', 'signup-input')
+  $email.setAttribute('type', 'text')
+  $email.setAttribute('id', 'signup-email')
+  $email.setAttribute('placeholder', 'Email')
+  $Form.appendChild($email)
+
+  let $password = newClassName('input', 'signup-input')
+  $password.setAttribute('type', 'password')
+  $password.setAttribute('id', 'signup-password')
+  $password.setAttribute('placeholder', 'Password')
+  $Form.appendChild($password)
+
+  let $zip = newClassName('input', 'signup-input')
+  $zip.setAttribute('type', 'text')
+  $zip.setAttribute('id', 'signup-zip')
+  $zip.setAttribute('placeholder', 'City')
+  $Form.appendChild($zip)
+
+  let $button = newClassName('button', 'signup-input')
+  $button.setAttribute('id', 'signup-button')
+  $button.setAttribute('type', 'submit')
+  $button.textContent = 'Sign Up'
+  $Form.appendChild($button)
+
+  $Left.appendChild($Form)
+
+  let $Right = newClassName('div', 'signup-right')
+
+  let $image = newClassName('img')
+  $image.setAttribute('id', 'signup-image')
+  $image.setAttribute('src', 'https://s3-media4.fl.yelpcdn.com/assets/2/www/img/1e82406ff345/signup/signup_illustration.png')
+  $image.setAttribute('height', '365px')
+  $image.setAttribute('width', '400px')
+  $Right.appendChild($image)
+
+  $Main.appendChild($Left)
+  $Main.appendChild($Right)
+
+  return $Main
+}
+
+function buildUserProfile(item) {
+
+  // <div id="profile-main">
+  //   <img src="http://placehold.it/140x100" class="profile-image"/>
+  //   <span class=profile-name></span>
+  //   <span class="profile-city"></span>
+  // </div>
+
+  let $Main = newClassName('div', 'profile-main')
+
+  let $img = newClassName('img', 'profile-image')
+  $img.setAttribute('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAATlBMVEWVu9////+Rud6Ntt2LtdyPuN3H2u2YveC50enq8fizzef6/P6KtNzz9/vd6PTT4vGiw+Lh6/XB1uvL3e/t8/msyeXY5fOfweGtyuW+1Ou5RGKjAAAG/0lEQVR4nO2d2XajOhBFoSTm2RgT//+PXpQ01ybGNqAjVDjaD3nJ6ixOC9WkUuF5DofD4XA4HA6Hw+FgBVFAgRBi+Elk+2GwDNIk9d01bKtSUbXhtetJfohQEqIOy8J/pCjDWoijixQUN9mMupGsiUnYfsjtUN41L9SNNF1+zIWkPJ57N+co4gNqJJm+ejsf3tZUHkxj0Ccr9CmSPrD90GuQ4Up9ilDafuzliLUL+G8Zj7KK1K/Zgfdk/SE2I3Ub9Sm6A0jUEngEiVRrCfT9mr1ETYG+b1vAG/KlYcxzCtZxqrxoC/T9C2O/SClAoO+nfLdisNURTsnYev6gggj0/YqrxAgk0Pcj21LmESVMYcnUnsIEMnWKArULFRXHRRRAgb7PUCHFUIUxP58ol5TVlpMwDGygAhnaGvBLyvA1DRAx9z0XbnGN0E+bprBLonAR2wizyA2UN93DLIeiFq6w5aUwwHpDRcPL1Ei0oRlMDS+fD8ru72GW6RNcoO/z2od4Z+H7vW1R92hXuufgVf3Gu0NmDhEedytYxd5/QOHVgMKrU7gnf+At/Xhb6ukdbc/T2RY1wYjHty1qgomojVeS//mRtzCQPfEqRckzXOGZWQb88VWMwEAlipdCOsEVnnhZGs1utjl4Ofw/UPPGuwtmpbbNbcHPSXi5Q2C30Ai7rqHPPyH1erBCVtXSb8B1fXaGBt6L0fCKShW05RLJc0J22xBd2OdV0v8hhyrMbcuZQSA3YsPN3yugVWFW1eD/QdZqbGuZB1jJOHPchtAsmKGv+ObjO9lxGRS7zGkEll/wyytGUNaUrUBUuz675PcOTJLILzW8AUmhGCZONyAJBrdC6ZRc32EkPOOZEcAicswM79Heiax34Te6oRtnQ/qDZmmYsy8c0SorMiwiPqJ10PbF3Mz8oBG7sbxYOcPmxn1m7fmv2KjQ9mMvZ+NW5D+55YbYkgvHB9mEP4j1VanroQQOEtfWh48mcJC4rqk2PZxAlWYsD24y7gnFPOQtzTMa7zgCaeKz5TKTGk//EWe1lJ+mkwKI3l/xvkwn0crkxHYQpgjUQfevYQhB9FrjJZpmE1KVQcKAod0h0f8LuH9PPxRe+CxOLULvl5TxYKDqeY3fJRGktxLU+eHXsg8fZu1mTdg/brnbAV2SBlxEEuV1NXn+LHp4tOH/oE/DqknO53PSVGHazzz/r5GSWVXn9qdFK3nto99L59Igou9x3mqg9+yDy8cYIWstiyT5a/VuBmS9qRDzJmlYSWv+Q0Tt81S3qNdpFN2Lv9VGNmyr/HoTsVy85VWlwHvjN5uvvRcyTxe0JYQLjSGJBR1j53TPan8QLTyeaAer8vaPiYU3GZJot1KjXJHeXmr56rkC2a0Y3XPaqVIl183WK6pu3ncPPrKr1pXlyl0kyvUHaFnTdr2QclCqEIGUov9qX35TYJ49RoBtPlzKiuZStWEYttWlKbaW/s0fTUl0T/5aKsMSjVxpXofpC9C29fmGK+NPYsd92RDzLsfEle31GLzkDei0QGCwW4PHEhpcRPClke0Yc4omxgpsw1CHLfhWjA6GuqQNTJ3bipnjcCPzvLZi5CQHfktUByONRfAZrDoYmd+KviSqh4H2NwNTE3QwMHEBejVNHwOX27BD5fWBK2TlKxRwf8FsGxrYiMDPc2CAf+Qjxw+C0iNDJ4kmhnnpgX5LTQzV0wN88YRR5jQCzqACboZmMDXY4BvwxTg0BdbUcItoFNA1ZBfRKLBRjYkZs7rESIHEKb8fqZBryKZSeg+0aiq5xWyKDFpws61mFqA+lqYUakyNjOvWBzh6wcB3chAAv7XDMCpVACNTA1OCEQAnDRv4Tg4C4JVaPgeHU3DHiDydBfK0236b0DwpSiDDEsYPsEKGgWHdGGAjv9lVg0dgVWH4FGQUsJlgjFoUpsAaFgx82gED7AMR/Cr6IyhLwzWkwQU1vHoU7kH1K/A7lRkBnc4w6O1+Bqjnm2kNQwGqY7A7wr8BOsz/Awq5phaw5MIptAhK4cfb0j8QtX1+fsj0YAZ5NMM0bkPe06Oll7d3JOmxLUOy5lWOKmv8lQtBMZeFTGIycweRZHSyLzI5RSYnSNgWaVjeP5HD62pnT5bDy7nT/A8SeR3uu5RJWOf7TlUikqJrkz0qqVnSdkLaGTVEkupTabIiXpSnmuzOqFOzn6JNIy7eoYZpRGqmlE15/6NkpmGDWs2iCdNIvh9tszPDauaiu1ZaezNLqmsnci4rNwcFMve6uCpXTi/JirKKOy/nt3LzEAkZRLWaQXd+KTUrzmo+XR0FUjBet2fQsKKB8mJR3cWnsK2qS1k2ZXmpqjY8xV0dDZ5VBMOqHU/bI2q2UDAIFt+S1NS9T1DlcDgcDofD4XA4HJ/Df5HucULJQZWSAAAAAElFTkSuQmCC')
+  $img.setAttribute('height', '200px')
+  $img.setAttribute('width', '200px')
+
+  let $name = newClassName('span', 'profile-name')
+  $name.textContent = 'Name: ' + item.first + ' ' + item.last
+
+  let $city = newClassName('span', 'profile-city')
+  $city.textContent = 'City: ' + item.city
+
+  $Main.appendChild($img)
+  $Main.appendChild($name)
+  $Main.appendChild($city)
+
+  return $Main
+}
   // **************** END **************** //
 
   // **************** EVENT LISTENER FUNCTIONS **************** //
 // The $ sign preceding a variable name is a naming convention that represents a DOM element.
+let $landing = document.getElementById('landing')
 let $form = document.getElementById('form-search')
 let $term = $form.elements[0]
 let $locationTerm = $form.elements[1]
 
+let $signUp = document.getElementById('signup')
+let $signUpButton = document.getElementById('sign-up')
+
 let $businesses = document.getElementById('businesses')
 let $business = document.getElementById('business')
 let $review = document.getElementById('review')
+let $profile = document.getElementById('profile')
 
 // 1. UI View for user search.
 // 2. UI View for single business.
 // 3. UI View for review form.
 // 4. UI View to submit new review.
 // 5. UI View to toggle between Review Form and Single Business.
-let showSearch = function(event) {
+// 6. UI View for the user sign up form.
+let submitMainSearch = function(event) {
+
   event.preventDefault()
 
   empty($businesses)
+  empty($business)
+  empty($review)
+  empty($signUp)
+  empty($profile)
+  empty($landing)
+
+  show($businesses)
 
   let userSearchValue = $term.value
   let locationValue = $locationTerm.value
@@ -292,76 +457,69 @@ let showSearch = function(event) {
   // Conditionals for search results.
   if (locationValue.trim() && userSearchValue.trim()) {
     return matchingCities.forEach((item) => {
-      let $item = renderBusinesses(item)
+      let $item = buildBusinessList(item)
       $businesses.appendChild($item)
     })
   }
   if (!userSearchValue.trim()) {
     return matchingCities.forEach((item) => {
-      let $item = renderBusinesses(item)
+      let $item = buildBusinessList(item)
       $businesses.appendChild($item)
     })
   }
   if (!locationValue.trim()) {
     return matchingBusinesses.forEach((item) => {
-      let $item = renderBusinesses(item)
+      let $item = buildBusinessList(item)
       $businesses.appendChild($item)
     })
   }
 
-  // CSS to show.
-  $businesses.style.visibility = 'visible'
-  $businesses.style.position = 'relative'
-
-  // CSS to hide.
-  $business.style.visibility = 'hidden'
-  $business.style.position = 'relative'
-  $review.style.visibility = 'hidden'
-
   $term.select()
+  $locationTerm.select()
 }
 
-let showBusiness = function(event) {
+let renderIndividualBusiness = function(event) {
+
   empty($business)
 
+  hide($businesses)
+  absolute($businesses)
+
   if (event.target.classList.value === 'business-name') {
+
+    show($business)
+    relative($business)
+
     companies.forEach((object) => {
       if (event.target.getAttribute('data-id') == object.id) {
-        let $singleBusiness = renderSingleBusiness(object)
+        let $singleBusiness = buildSingleBusiness(object)
         $business.appendChild($singleBusiness)
-
-        // CSS to show.
-        $business.style.visibility = 'visible'
-
-        // CSS to hide.
-        $businesses.style.visibility = 'hidden'
-        $businesses.style.position = 'absolute'
       }
     })
   }
 }
 
-let showReviewForm = function(event) {
+let renderReviewForm = function(event) {
+
   empty($review)
 
   if (event.target.classList.value === 'review-button') {
+
+    show($review)
+    hide($business)
+    absolute($business)
+
     companies.forEach((object) => {
       if (event.target.getAttribute('data-id') == object.id) {
-        let $form = renderReviewForm(object)
+        let $form = buildReviewForm(object)
         $review.appendChild($form)
-
-        // CSS set to show.
-        $review.style.visibility = 'visible'
-
-        // CSS to hide.
-        $business.style.visibility = 'hidden'
-        $business.style.position = 'absolute'
       }
     })
   }
 }
 
-let postNewReview = function(event) {
+let submitNewReview = function(event) {
+
   event.preventDefault()
 
   let $form = document.getElementById('reviewForm')
@@ -372,6 +530,7 @@ let postNewReview = function(event) {
 
   let $textTerm = $form.querySelector('textarea')
   let review = $textTerm.value
+  if (!review) return
 
   let $reviews = newClassName('div', 'business-main-reviews')
 
@@ -393,26 +552,126 @@ let postNewReview = function(event) {
   $reviews.appendChild($userReview)
   $business.appendChild($reviews)
 
-  // CSS to show
-  $business.style.visibility = 'visible'
-  $business.style.position = 'relative'
+  // CSS to show/hide.
+  show($business)
+  relative($business)
 
-  // CSS to hide
-  $review.style.visibility = 'hidden'
+  hide($review)
 }
 
-let toggleSingleBusiness = function(event) {
+let renderToggleBusiness = function(event) {
 
   if (event.target.classList.value === 'review-name') {
     // CSS to show
-    $business.style.visibility = 'visible'
-    $business.style.position = 'relative'
+    show($business)
+    relative($business)
 
     // CSS to hide
-    $review.style.visibility = 'hidden'
+    hide($review)
   }
 }
 
+let renderSignUpForm = function(event) {
+
+  event.preventDefault()
+
+  empty($signUp)
+
+  if (event.target.getAttribute('id') === 'sign-up') {
+
+    hide($businesses)
+    hide($business)
+    hide($review)
+
+    let $view = buildSignUpForm()
+    $signUp.appendChild($view)
+  }
+}
+
+let submitNewProfile = function(event) {
+
+  event.preventDefault()
+
+  let $signUpForm = document.getElementById('signup-form')
+  let $firstname = $signUpForm.elements[0]
+  let $lastname = $signUpForm.elements[1]
+  let $email = $signUpForm.elements[2]
+  let $password = $signUpForm.elements[3]
+  let $zip = $signUpForm.elements[4]
+
+  let lastname = $lastname.value
+  let email = $email.value
+  let password = $password.value
+  let zip = $zip.value
+
+  localStorage.setItem('1', JSON.stringify({
+    first: $firstname.value,
+    last: lastname,
+    email: email,
+    password: password,
+    zip: zip
+  }))
+
+  let get = localStorage.getItem('1')
+  let person = JSON.parse(get)
+
+  let $person = buildUserProfile(person)
+  $profile.appendChild($person)
+
+  // Hides Sign Up button on submission.
+  let $button = document.getElementById('sign-up')
+  hide($button)
+
+  empty($signUp)
+  hide($landing)
+}
+
+let submitLandingProfile = function(event) {
+
+  event.preventDefault()
+
+  let $landingForm = document.getElementById('landing-form')
+
+  let $firstname = $landingForm.elements[0]
+  if (!$firstname.value) return red($firstname)
+  else green($firstname)
+
+  let $lastname = $landingForm.elements[1]
+  if (!$lastname.value) return red($lastname)
+  else green($lastname)
+
+  let $email = $landingForm.elements[2]
+  if (!$email.value) return red($email)
+  else green($email)
+
+  let $password = $landingForm.elements[3]
+  if (!$password.value) return red($password)
+  else green($password)
+
+  let $city = $landingForm.elements[4]
+  if (!$city.value) return red($city)
+  else green($city)
+
+  localStorage.setItem('1', JSON.stringify({
+    first: $firstname.value,
+    last: $lastname.value,
+    email: $email.value,
+    password: $password.value,
+    city: $city.value
+  }))
+
+  let get = localStorage.getItem('1')
+  let person = JSON.parse(get)
+
+  let $person = buildUserProfile(person)
+  $profile.appendChild($person)
+
+  // Hides Sign Up button on submission.
+  let $button = document.getElementById('sign-up')
+  hide($button)
+
+  empty($landing)
+}
   // **************** END **************** //
 
   // **************** EVENT LISTENERS **************** //
@@ -421,13 +680,20 @@ let toggleSingleBusiness = function(event) {
 // 3. Event listener that shows the review form.
 // 4. Event listener that captures users' review input.
 // 5. Event listener that toggles between review form and it's associating business.
-$form.addEventListener('submit', showSearch)
+// 6. Event listener on the sign up submission.
+$form.addEventListener('submit', submitMainSearch)
 
-$businesses.addEventListener('click', showBusiness)
+$signUpButton.addEventListener('click', renderSignUpForm)
 
-$business.addEventListener('click', showReviewForm)
+$businesses.addEventListener('click', renderIndividualBusiness)
 
-$review.addEventListener('submit', postNewReview)
+$business.addEventListener('click', renderReviewForm)
 
-$review.addEventListener('click', toggleSingleBusiness)
+$review.addEventListener('submit', submitNewReview)
+
+$review.addEventListener('click', renderToggleBusiness)
+
+$signUp.addEventListener('submit', submitNewProfile)
+
+$landing.addEventListener('submit', submitLandingProfile)
   // **************** END ****************//
