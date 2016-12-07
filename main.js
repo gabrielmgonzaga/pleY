@@ -81,34 +81,28 @@ function newClassName(element, className) {
   return name
 }
 
-function hide(id) {
-  let a = id
-  return a.style.visibility = 'hidden'
+function hide(element) {
+  element.style.visibility = 'hidden'
 }
 
-function show(id) {
-  let a = id
-  return a.style.visibility = 'visible'
+function show(element) {
+  element.style.visibility = 'visible'
 }
 
-function absolute(id) {
-  let a = id
-  return a.style.position = 'absolute'
+function absolute(element) {
+  element.style.position = 'absolute'
 }
 
-function relative(id) {
-  let a = id
-  return a.style.position = 'relative'
+function relative(element) {
+  element.style.position = 'relative'
 }
 
-function red(id) {
-  let a = id
-  return a.style.border = '1px solid #d90007'
+function red(element) {
+  element.style.border = '1px solid #d90007'
 }
 
-function green(id) {
-  let a = id
-  a.style.border = '1px solid green'
+function green(element) {
+  element.style.border = '1px solid green'
 }
 
 function date() {
@@ -127,7 +121,7 @@ function date() {
 // 3. Function that builds the user review DOM.
 // 4. Function that builds the Sign Up Form.
 // 5. Function that builds Users' Profile.
-function buildBusinessList(item) {
+function buildBusiness(business) {
 
   // <div class="business">
   //   <div class="business-thumbnail"><img src="{imageUrl}" />
@@ -142,22 +136,22 @@ function buildBusinessList(item) {
   let $thumbnail = newClassName('div', 'business-image')
 
   let $image = newClassName('img')
-  $image.setAttribute('src', item.img)
+  $image.setAttribute('src', business.img)
   $thumbnail.appendChild($image)
 
   let $name = newClassName('a', 'business-name')
   $name.setAttribute('href', '#')
-  $name.setAttribute('data-id', item.id)
-  $name.textContent = item.name
+  $name.setAttribute('data-id', business.id)
+  $name.textContent = business.name
 
   let $rating = newClassName('span', 'business-rating')
-  $rating.textContent = 'Rating: ' + item.reviews.rating
+  $rating.textContent = 'Rating: ' + business.reviews.rating
 
   let $address = newClassName('span', 'business-address')
-  $address.textContent = item.address
+  $address.textContent = business.address
 
   let $review = newClassName('span', 'business-review')
-  $review.textContent = item.reviews.review
+  $review.textContent = business.reviews.review
 
   $item.appendChild($rating)
   $item.appendChild($thumbnail)
@@ -168,7 +162,7 @@ function buildBusinessList(item) {
   return $item
 }
 
-function buildSingleBusiness(item) {
+function buildMainBusiness(business) {
 
   // <div class="business-main">
   //   <div class="business-header">
@@ -187,34 +181,34 @@ function buildSingleBusiness(item) {
 
   let $item = newClassName('div', 'business-header')
   let $name = newClassName('h1', 'business-header-name')
-  $name.textContent = item.name
+  $name.textContent = business.name
 
   let $button = newClassName('a', 'review-button')
   $button.setAttribute('href', '#')
-  $button.setAttribute('data-id', item.id)
+  $button.setAttribute('data-id', business.id)
   $button.textContent = 'Write a Review'
 
   let $businessImages = newClassName('img')
-  $businessImages.setAttribute('src', item.img)
+  $businessImages.setAttribute('src', business.img)
   $businessImages.setAttribute('id', 'map')
 
   let $reviews = newClassName('div', 'business-main-reviews')
 
   let $userImage = newClassName('img')
-  $userImage.setAttribute('src', item.reviews.img)
+  $userImage.setAttribute('src', business.reviews.img)
   $userImage.setAttribute('id', 'smallImage')
 
   let $userName = newClassName('a')
   $userName.setAttribute('href', '#')
   $userName.setAttribute('id', 'userName')
-  $userName.textContent = item.reviews.name
+  $userName.textContent = business.reviews.name
 
   let $userRating = newClassName('span', 'business-main-rating')
-  $userRating.textContent = 'Rating: ' + item.reviews.rating
+  $userRating.textContent = 'Rating: ' + business.reviews.rating
 
   let $userReviews = newClassName('div')
   $userReviews.setAttribute('id', 'userReviews')
-  $userReviews.textContent = item.reviews.review
+  $userReviews.textContent = business.reviews.review
 
   $item.appendChild($name)
   $item.appendChild($button)
@@ -440,7 +434,7 @@ let $profile = document.getElementById('profile')
 // 4. UI View to submit new review.
 // 5. UI View to toggle between Review Form and Single Business.
 // 6. UI View for the user sign up form.
-let submitMainSearch = function(event) {
+let submitSearch = (event) => {
 
   event.preventDefault()
 
@@ -483,28 +477,27 @@ let submitMainSearch = function(event) {
   // Conditionals for search results.
   if (locationValue.trim() && userSearchValue.trim()) {
     return matchingCities.forEach((item) => {
-      let $item = buildBusinessList(item)
+      let $item = buildBusiness(item)
       $businesses.appendChild($item)
     })
   }
   if (!userSearchValue.trim()) {
     return matchingCities.forEach((item) => {
-      let $item = buildBusinessList(item)
+      let $item = buildBusiness(item)
       $businesses.appendChild($item)
     })
   }
   if (!locationValue.trim()) {
     return matchingBusinesses.forEach((item) => {
-      let $item = buildBusinessList(item)
+      let $item = buildBusiness(item)
       $businesses.appendChild($item)
     })
   }
 
   $term.select()
-  $locationTerm.select()
 }
 
-let renderIndividualBusiness = function(event) {
+let renderIndividualBusiness = (event) => {
 
   empty($business)
 
@@ -518,14 +511,14 @@ let renderIndividualBusiness = function(event) {
 
     companies.forEach((object) => {
       if (event.target.getAttribute('data-id') == object.id) {
-        let $singleBusiness = buildSingleBusiness(object)
+        let $singleBusiness = buildMainBusiness(object)
         $business.appendChild($singleBusiness)
       }
     })
   }
 }
 
-let renderReviewForm = function(event) {
+let renderReviewForm = (event) => {
 
   empty($review)
 
@@ -544,7 +537,7 @@ let renderReviewForm = function(event) {
   }
 }
 
-let submitNewReview = function(event) {
+let submitNewReview = (event) => {
 
   event.preventDefault()
 
@@ -605,18 +598,20 @@ let submitNewReview = function(event) {
   hide($review)
 }
 
-let renderToggleBusiness = function(event) {
+let renderToggleBusiness = (event) => {
 
   if (event.target.classList.value === 'review-name') {
     // CSS to show/hide.
     show($business)
     relative($business)
-
     hide($review)
   }
 }
 
-let renderToggleProfile = function(event) {
+let renderToggleProfile = (event) => {
+
+  empty($profile)
+
   if (event.target.classList.value === 'signup-button') {
     let get = localStorage.getItem('1')
     let person = JSON.parse(get)
@@ -631,7 +626,7 @@ let renderToggleProfile = function(event) {
   }
 }
 
-let renderSignUpForm = function(event) {
+let renderSignUpForm = (event) => {
 
   event.preventDefault()
 
@@ -648,7 +643,7 @@ let renderSignUpForm = function(event) {
   }
 }
 
-let submitNewProfile = function(event) {
+let submitNewProfile = (event) => {
 
   event.preventDefault()
 
@@ -686,7 +681,7 @@ let submitNewProfile = function(event) {
   hide($landing)
 }
 
-let submitLandingProfile = function(event) {
+let submitLandingProfile = (event) => {
 
   event.preventDefault()
 
@@ -746,7 +741,7 @@ let submitLandingProfile = function(event) {
 // 4. Event listener that captures users' review input.
 // 5. Event listener that toggles between review form and it's associating business.
 // 6. Event listener on the sign up submission.
-$form.addEventListener('submit', submitMainSearch)
+$form.addEventListener('submit', submitSearch)
 
 $signUpButton.addEventListener('click', renderSignUpForm)
 
