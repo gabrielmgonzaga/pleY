@@ -1,6 +1,6 @@
 # pleY
 
-pleY is a Yelp inspired toy application built in the Fall of 2016 at Orange County Code School. It's primary purpose was to solidify my CSS and JavaScript fundamentals. It was built from the ground up with no frameworks or libraries. pleY is built on `HTML`, `CSS`, and pure `JavaScript` to dynamically create and display DOM elements. 
+pleY is a Yelp inspired application built in the Fall of 2016. It's primary purpose was to solidify my CSS and JavaScript fundamentals. It was built from the ground up with no frameworks or libraries. pleY is built on `HTML`, `CSS`, and pure `JavaScript` to dynamically create and display DOM elements. 
 
 Below are snapshots of the program and it's capabilities!
 
