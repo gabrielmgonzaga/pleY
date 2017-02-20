@@ -1,10 +1,15 @@
 # pleY
+pleY is literally Yelp backwards. It's a simplified re-creation of the Yelp application with fictional business data. pleY was made with raw HTML5, CSS3, and JavaScript with no libraries or frameworks utilized.
 
-pleY is a Yelp inspired application built in the Fall of 2016. It's primary purpose was to solidify my CSS and JavaScript fundamentals. It was built from the ground up with no frameworks or libraries. pleY is built on `HTML`, `CSS`, and pure `JavaScript` to dynamically create and display DOM elements. 
+## Technologies
+- HTML5 
+- CSS3
+- Javascript
 
-Below are snapshots of the program and it's capabilities!
-
-___
+## Features 
+- User can signup
+- User can search businesses by keywords or location
+- User can leave comments and ratings on individual businesses
 
 ![pley1](https://cloud.githubusercontent.com/assets/14193267/20982338/ed652b34-bc6c-11e6-9286-198eb935f5c8.png)
 
