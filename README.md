@@ -1,10 +1,10 @@
 # pleY
-pleY is literally Yelp backwards. It's a simplified re-creation of the Yelp application with fictional business data. pleY was made with raw HTML5, CSS3, and JavaScript with no libraries or frameworks utilized.
+pleY is literally Yelp backwards. It's a simplified re-creation of the Yelp application with fictional business data. pleY was made with HTML5, CSS3, and vanilla JavaScript with no libraries or frameworks utilized.
 
 ## Technologies
 - HTML5
 - CSS3
-- Javascript
+- JavaScript
 
 ## Features
 - User can signup
